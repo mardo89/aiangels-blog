@@ -20,7 +20,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Restore token.pickle
-        run: echo "${{ secrets.TOKEN_PICKLE_B64 }}" | base64 -d > token.pickle
+        run: echo "${{ secrets.TOKEN_PICKLE_B64 }}" | base64 --decode > token.pickle
 
       - name: Run script
         env:
