@@ -20,7 +20,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Restore token.pickle
-        run: echo "${{ secrets.TOKEN_PICKLE_B64 }}" | base64 --decode > token.pickle
+        run: python3 -c "import base64,os; open('token.pickle','wb').write(base64.b64decode(os.environ['TOKEN_PICKLE_B64']))"
+        env:
+          TOKEN_PICKLE_B64: ${{ secrets.TOKEN_PICKLE_B64 }}
 
       - name: Run script
         env:
