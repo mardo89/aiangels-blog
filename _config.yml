@@ -1,0 +1,10 @@
+title: AI Angels Blog
+description: "AI Girlfriend & AI Companion Platform - AI Angels delivers realistic conversations, deep memory, and real emotional connection."
+url: "https://mardo89.github.io"
+baseurl: "/aiangels-blog"
+theme: minima
+author: AI Angels Team
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+header_pages: []
