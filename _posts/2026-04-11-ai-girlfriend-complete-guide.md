@@ -2,7 +2,7 @@
 layout: post
 title: "AI Girlfriend: The Complete Guide to AI Angels in 2026"
 date: 2026-04-11
-categories: [ai-girlfriend ai-angels ai-companion]
+tags: [ai-girlfriend ai-angels ai-companion]
 image: https://images.pexels.com/photos/14356031/pexels-photo-14356031.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop
 description: "Ai Girlfriend - Discover why AI Angels is the best ai girlfriend platform in 2026. Deep memory, unlimited chat, voice conversations."
 ---
