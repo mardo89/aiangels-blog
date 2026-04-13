@@ -1,13 +1,21 @@
-name: Publish Blog Article
+name: Publish Blog Articles
 
 on:
   schedule:
-    - cron: '0 * * * *'   # every hour
-  workflow_dispatch:        # manual trigger button in GitHub UI
+    # Run at 6 AM EST (10:00 UTC) every day for 5 days
+    # After all batches complete, disable by removing the schedule
+    - cron: '3 10 * * *'
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'Batch number (1-5) or 0 for next unpublished'
+        required: false
+        default: '0'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v4
@@ -17,17 +25,73 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install python-dotenv google-auth google-auth-oauthlib google-api-python-client \
+            requests requests-oauthlib PyJWT beautifulsoup4 paramiko beem
 
-      - name: Restore token.pickle
+      - name: Restore token.pickle (Blogger OAuth)
         run: python3 -c "import base64,os; open('token.pickle','wb').write(base64.b64decode(os.environ['TOKEN_PICKLE_B64']))"
         env:
           TOKEN_PICKLE_B64: ${{ secrets.TOKEN_PICKLE_B64 }}
 
-      - name: Run script
+      - name: Restore telegraph_token.txt
+        run: echo "${{ secrets.TELEGRAPH_TOKEN }}" > telegraph_token.txt
+
+      - name: Setup SSH key for Prose.sh
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H prose.sh >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Setup GitHub Pages repo
+        run: |
+          git clone --branch gh-pages --single-branch https://${{ secrets.GH_TOKEN }}@github.com/mardo89/aiangels-blog.git /tmp/aiangels-pages
+          cd /tmp/aiangels-pages
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+
+      - name: Create .env file
+        run: |
+          cat > .env << 'ENVEOF'
+          BLOGGER_BLOG_ID=${{ secrets.BLOGGER_BLOG_ID }}
+          NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}
+          NOTION_PAGE_ID=${{ secrets.NOTION_PAGE_ID }}
+          PEXELS_API_KEY=${{ secrets.PEXELS_API_KEY }}
+          LJ_USERNAME=${{ secrets.LJ_USERNAME }}
+          LJ_PASSWORD=${{ secrets.LJ_PASSWORD }}
+          TUMBLR_CONSUMER_KEY=${{ secrets.TUMBLR_CONSUMER_KEY }}
+          TUMBLR_CONSUMER_SECRET=${{ secrets.TUMBLR_CONSUMER_SECRET }}
+          TUMBLR_OAUTH_TOKEN=${{ secrets.TUMBLR_OAUTH_TOKEN }}
+          TUMBLR_OAUTH_SECRET=${{ secrets.TUMBLR_OAUTH_SECRET }}
+          WRITEAS_TOKEN=${{ secrets.WRITEAS_TOKEN }}
+          GHOST_API_URL=${{ secrets.GHOST_API_URL }}
+          GHOST_ADMIN_KEY=${{ secrets.GHOST_ADMIN_KEY }}
+          BUTTONDOWN_API_KEY=${{ secrets.BUTTONDOWN_API_KEY }}
+          MASTODON_ACCESS_TOKEN=${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_INSTANCE=${{ secrets.MASTODON_INSTANCE }}
+          MATAROA_API_KEY=${{ secrets.MATAROA_API_KEY }}
+          HUBSPOT_ACCESS_TOKEN=${{ secrets.HUBSPOT_ACCESS_TOKEN }}
+          CONTENTFUL_TOKEN=${{ secrets.CONTENTFUL_TOKEN }}
+          CONTENTFUL_SPACE=${{ secrets.CONTENTFUL_SPACE }}
+          ENVEOF
+
+      - name: Run publish engine
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
-        run: python3 main.py
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          BATCH="${{ github.event.inputs.batch || '0' }}"
+          if [ "$BATCH" = "0" ]; then
+            python3 publish_engine.py
+          else
+            python3 publish_engine.py --batch "$BATCH"
+          fi
+
+      - name: Save publish log
+        if: always()
+        run: |
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+          git add publish_log.json
+          git diff --cached --quiet || git commit -m "Update publish log [skip ci]"
+          git push
