@@ -2,15 +2,10 @@ name: Mastodon Scheduler
 
 on:
   schedule:
-    # Run 6 times per day at the posting times (UTC)
-    # 8 AM EST = 12:00 UTC, 10 AM = 14:00, 12 PM = 16:00
-    # 3 PM = 19:00, 6 PM = 22:00, 9 PM = 01:00+1
-    - cron: '0 12 * * *'    # 8 AM EST
-    - cron: '30 14 * * *'   # 10:30 AM EST
-    - cron: '0 17 * * *'    # 1 PM EST
-    - cron: '0 19 * * *'    # 3 PM EST
-    - cron: '0 22 * * *'    # 6 PM EST
-    - cron: '0 1 * * *'     # 9 PM EST
+    # 3x/day — safe organic pace (no spam)
+    - cron: '7 13 * * *'    # 9 AM EST
+    - cron: '37 19 * * *'   # 3:37 PM EST
+    - cron: '7 1 * * *'     # 9 PM EST
   workflow_dispatch:
     inputs:
       date:
