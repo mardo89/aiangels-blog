@@ -150,11 +150,13 @@ SEO_TITLES = {
 }
 
 def get_seo_title(a):
-    """Get SEO-optimized title for an article"""
+    """Get SEO-optimized title for an article — uses platform-specific if available"""
+    # If platform-specific title was injected, use it
+    if "_platform_title" in a:
+        return a["_platform_title"]
     slug = a["slug"]
     if slug in SEO_TITLES:
         return SEO_TITLES[slug]
-    # Fallback: keyword + personality hook
     kw = a["keyword"]
     personality = a["personality"]
     words = personality.split(" and ")
@@ -596,6 +598,93 @@ def generate_micro(a):
 
 
 # ═══════════════════════════════════════════════════════════════
+# PLATFORM-SPECIFIC TITLES, IMAGES, META DESCRIPTIONS
+# ═══════════════════════════════════════════════════════════════
+PLATFORM_TITLE_SUFFIXES = {
+    "Blogger Page":  " — Complete Guide | AI Angels",
+    "Blogger Post":  " | AI Angels Blog",
+    "Ghost Page":    " — In-Depth Guide",
+    "Ghost Post":    " | AI Angels",
+    "Telegraph":     "",
+    "Notion":        " — AI Angels Hub",
+    "LiveJournal":   " | AI Angels Community",
+    "Tumblr":        "",
+    "Write.as":      " — AI Angels",
+    "WordPress":     " | AI Angels Companions",
+    "Buttondown":    " — AI Angels Newsletter",
+    "Mastodon":      "",
+    "Mataroa":       " | AI Angels Blog",
+    "Dreamwidth":    " | AI Angels Journal",
+    "GitHub Gists":  " — AI Angels",
+    "HubSpot":       " | AI Angels",
+    "Prose.sh":      " — AI Angels",
+    "Bear Blog":     "",
+    "Contentful":    " | AI Angels",
+}
+
+# Each platform gets a different image index (0-6) ensuring unique images
+PLATFORM_IMAGE_INDEX = {
+    "Blogger Page": 0,
+    "Blogger Post": 1,
+    "Ghost Page":   2,
+    "Ghost Post":   3,
+    "Telegraph":    4,
+    "Notion":       5,
+    "LiveJournal":  6,
+    "Tumblr":       0,
+    "Write.as":     1,
+    "WordPress":    2,
+    "Buttondown":   3,
+    "Mastodon":     4,
+    "Mataroa":      5,
+    "Dreamwidth":   6,
+    "GitHub Gists": 0,
+    "HubSpot":      1,
+    "Prose.sh":     2,
+    "Bear Blog":    3,
+    "Contentful":   4,
+}
+
+PLATFORM_META_TEMPLATES = {
+    "Blogger Page":  "{kw} complete guide on AI Angels. Deep memory, unlimited chat, voice conversations. Everything you need to know.",
+    "Blogger Post":  "{kw} on AI Angels Blog. Create your perfect AI companion with deep memory, unlimited chat and genuine connection.",
+    "Ghost Page":    "The ultimate guide to {kw} on AI Angels. Explore features, personality traits and how to get started free.",
+    "Ghost Post":    "Discover {kw} on AI Angels. Deep emotional intelligence, unlimited conversations and a companion who never forgets.",
+    "Telegraph":     "{kw} — AI Angels. The most advanced AI companion with deep memory and voice chat. Try free.",
+    "Notion":        "{kw} overview on AI Angels Hub. Features, customization options and getting started guide.",
+    "LiveJournal":   "{kw} community post. Why thousands choose AI Angels for genuine AI companionship.",
+    "Tumblr":        "{kw} on AI Angels. Deep memory, unlimited chat, voice. Try free.",
+    "Write.as":      "{kw} — a deep dive into AI Angels companion technology. Memory, voice, emotional intelligence.",
+    "WordPress":     "{kw} on AI Angels Companions. Free unlimited chat, deep memory, voice conversations and complete privacy.",
+    "Buttondown":    "{kw} — AI Angels Newsletter. Latest insights on AI companionship, features and updates.",
+    "Mastodon":      "{kw} on AI Angels. She remembers everything. Try free.",
+    "Mataroa":       "{kw} on AI Angels Blog. Exploring the future of AI companionship with deep emotional connection.",
+    "Dreamwidth":    "{kw} journal entry. Personal thoughts on AI Angels companion experience and features.",
+    "GitHub Gists":  "{kw} — technical overview of AI Angels companion platform. Memory, voice, customization.",
+    "HubSpot":       "{kw} on AI Angels. The smartest AI companion with deep memory, voice chat and emotional intelligence.",
+    "Prose.sh":      "{kw} — minimalist guide to AI Angels. Deep memory, unlimited chat, genuine connection.",
+    "Bear Blog":     "{kw} on AI Angels. Simple, honest companion experience with deep memory and voice chat.",
+    "Contentful":    "{kw} content entry for AI Angels. Structured companion data with full feature details.",
+}
+
+def get_platform_title(a, platform):
+    """Get unique title per platform"""
+    base = get_seo_title(a)
+    suffix = PLATFORM_TITLE_SUFFIXES.get(platform, "")
+    return base + suffix
+
+def get_platform_image(photos, slug, platform):
+    """Get unique image per platform"""
+    idx = PLATFORM_IMAGE_INDEX.get(platform, 0)
+    return get_photo(photos, slug, idx)
+
+def get_platform_meta(a, platform):
+    """Get unique meta description per platform"""
+    template = PLATFORM_META_TEMPLATES.get(platform, "{kw} on AI Angels. Deep memory, unlimited chat, voice.")
+    return template.format(kw=a["keyword"])
+
+
+# ═══════════════════════════════════════════════════════════════
 # PLATFORM PUBLISHERS
 # ═══════════════════════════════════════════════════════════════
 def retry(fn, max_retries=3, delay=10):
@@ -746,7 +835,7 @@ def pub_hubspot(a, html, img):
     r = requests.post("https://api.hubapi.com/cms/v3/blogs/posts", headers=headers, json={
         "name": get_seo_title(a), "contentGroupId": HUBSPOT_BLOG_ID, "slug": a["slug"],
         "postBody": f'<img src="{img}" alt="{a["keyword"]}" style="max-width:100%;border-radius:10px;"/>{html}',
-        "metaDescription": f'{a["keyword"]} - AI Angels. {a["personality"].capitalize()}.', "blogAuthorId": HUBSPOT_AUTHOR,
+        "metaDescription": a.get("_platform_meta", f'{a["keyword"]} on AI Angels.'), "blogAuthorId": HUBSPOT_AUTHOR,
         "featuredImage": img, "useFeaturedImage": True, "state": "PUBLISHED"})
     return r.json().get("url", "") if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
@@ -772,7 +861,7 @@ def pub_contentful(a, md, img):
     BASE = f"https://api.contentful.com/spaces/{CONTENTFUL_SPACE}/environments/master"
     entry_data = {"fields": {
         "title": {"en-US": get_seo_title(a)}, "slug": {"en-US": a["slug"]}, "body": {"en-US": md},
-        "metaDescription": {"en-US": f'{a["keyword"]} on AI Angels. {a["personality"].capitalize()}.'},
+        "metaDescription": {"en-US": a.get("_platform_meta", f'{a["keyword"]} on AI Angels.')},
         "featuredImage": {"en-US": img}, "tags": {"en-US": [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]}}}
     r = requests.put(f"{BASE}/entries/{a['slug']}", headers=headers, json=entry_data)
     if r.status_code in (200, 201):
@@ -850,19 +939,30 @@ def publish_batch(articles, photos, all_slugs, publish_log, dry_run=False):
                 log.info(f"  ⏭️  [{i+1}/{len(articles)}] {a['keyword']} (already published)")
                 continue
 
-            img = get_photo(photos, slug, PLATFORMS.index((platform_name, delay, pub_fn)) % 7)
-            html = generate_html_full(a, photos, all_slugs)
-            md = generate_md_medium(a, photos, all_slugs)
-            teaser = generate_teaser(a, photos)
-            micro = generate_micro(a)
+            # Platform-specific image, title, and meta
+            img = get_platform_image(photos, slug, platform_name)
+            p_title = get_platform_title(a, platform_name)
+            p_meta = get_platform_meta(a, platform_name)
+
+            # Inject platform title into article data for publishers
+            a_copy = dict(a)
+            a_copy["_platform"] = platform_name
+            a_copy["_platform_title"] = p_title
+            a_copy["_platform_meta"] = p_meta
+            a_copy["_platform_img"] = img
+
+            html = generate_html_full(a_copy, photos, all_slugs)
+            md = generate_md_medium(a_copy, photos, all_slugs)
+            teaser = generate_teaser(a_copy, photos)
+            micro = generate_micro(a_copy)
 
             if dry_run:
-                log.info(f"  🔍 [{i+1}/{len(articles)}] {a['keyword']} (dry run)")
+                log.info(f"  🔍 [{i+1}/{len(articles)}] {a['keyword']} img={PLATFORM_IMAGE_INDEX.get(platform_name,0)} (dry run)")
                 continue
 
             try:
-                result = retry(lambda: pub_fn(a, html, md, img, teaser, micro), max_retries=2, delay=delay*2)
-                publish_log[log_key] = {"url": str(result), "time": datetime.now().isoformat()}
+                result = retry(lambda: pub_fn(a_copy, html, md, img, teaser, micro), max_retries=2, delay=delay*2)
+                publish_log[log_key] = {"url": str(result), "time": datetime.now().isoformat(), "title": p_title, "meta": p_meta}
                 save_log(publish_log)
                 log.info(f"  ✅ [{i+1}/{len(articles)}] {a['keyword']}: {result}")
             except Exception as e:
