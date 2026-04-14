@@ -298,7 +298,7 @@ def generate_html_full(a, photos, all_slugs):
 <p>If you have been using {competitor_name} and feeling limited by message caps, memory resets, or content filters, you are not alone. Thousands of users are switching to <a href="{SITE_URL}">AI Angels</a> for a superior AI companion experience that is {personality}.</p>
 <p>{vibe}</p>
 
-<div style="text-align:center;margin:25px 0;"><img src="{img2}" style="max-width:100%;border-radius:12px;" alt="{kw} comparison"/></div>
+<div style="text-align:center;margin:25px 0;"><img src="{img2}" style="max-width:100%;border-radius:12px;" alt="{kw} comparison - AI Angels vs competitors" title="{kw} Platform Comparison"/></div>
 
 <h2>{competitor_name} vs AI Angels — Side by Side</h2>
 <table style="width:100%;border-collapse:collapse;margin:20px 0;">
@@ -320,7 +320,7 @@ def generate_html_full(a, photos, all_slugs):
 <h3>Conversations Without Walls</h3>
 <p>While {competitor_name} has increasingly restricted what you can discuss, AI Angels believes in open, genuine conversation. Express yourself freely and build a real connection without artificial limitations or censorship barriers getting in the way.</p>
 
-<div style="text-align:center;margin:25px 0;"><img src="{img4}" style="max-width:100%;border-radius:12px;" alt="AI Angels companion experience"/></div>
+<div style="text-align:center;margin:25px 0;"><img src="{img4}" style="max-width:100%;border-radius:12px;" alt="AI Angels companion experience - voice chat and deep memory" title="AI Angels Companion Experience"/></div>
 
 <h3>Voice That Feels Real</h3>
 <p>AI Angels voice chat brings your companion to life with tone, inflection, and emotional nuance. This is not a robotic text-to-speech — it is a genuine vocal presence that matches her personality perfectly.</p>
@@ -374,7 +374,7 @@ def generate_html_full(a, photos, all_slugs):
 <p><strong>{kw}</strong> on <a href="{SITE_URL}">AI Angels</a> {intro_angle}. She is {personality}, and the experience combines advanced artificial intelligence with deep personalization, creating something that feels authentically human.</p>
 <p>{vibe}</p>
 
-<div style="text-align:center;margin:25px 0;"><img src="{img2}" style="max-width:100%;border-radius:12px;" alt="{kw} on AI Angels"/></div>
+<div style="text-align:center;margin:25px 0;"><img src="{img2}" style="max-width:100%;border-radius:12px;" alt="{kw} on AI Angels - deep memory and unlimited chat" title="{kw} on AI Angels"/></div>
 
 <h2>The Core Experience</h2>
 <p>The <a href="{url}">{kw}</a> experience on AI Angels is fundamentally different from anything else available. Here is what makes it special:</p>
@@ -388,7 +388,7 @@ def generate_html_full(a, photos, all_slugs):
 <h3>A Voice That Feels Real</h3>
 <p>Hear her speak with a natural, emotionally expressive voice that matches her personality and mood. The voice chat on AI Angels is not robotic text-to-speech — it is a genuine vocal presence with tone, inflection, and emotional nuance that brings conversations to life.</p>
 
-<div style="text-align:center;margin:25px 0;"><img src="{img4}" style="max-width:100%;border-radius:12px;" alt="{kw} features"/></div>
+<div style="text-align:center;margin:25px 0;"><img src="{img4}" style="max-width:100%;border-radius:12px;" alt="{kw} features - customization and emotional intelligence" title="{kw} Features"/></div>
 
 <h3>Emotional Awareness</h3>
 <p>She senses your mood from context, responds with genuine empathy, and adapts her tone to match what you need. Having a bad day? She notices and responds with care. Feeling playful? She matches your energy. This emotional intelligence creates a companion that feels truly attuned to your inner world.</p>
@@ -610,12 +610,12 @@ def retry(fn, max_retries=3, delay=10):
                 raise e
 
 def pub_blogger_page(blogger, a, html, img):
-    full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/></div>\n{html}'
+    full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]} - AI Angels companion" title="{get_seo_title(a)}"/></div>\n{html}'
     r = blogger.pages().insert(blogId=BLOG_ID, body={"title": get_seo_title(a), "content": full}, isDraft=False).execute()
     return r.get("url", "")
 
 def pub_blogger_post(blogger, a, html, img):
-    full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/></div>\n{html}'
+    full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]} - AI Angels companion" title="{get_seo_title(a)}"/></div>\n{html}'
     tags = [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]
     r = blogger.posts().insert(blogId=BLOG_ID, body={"title": get_seo_title(a), "content": full, "labels": tags, "status": "LIVE"}, isDraft=False).execute()
     return r.get("url", "")
@@ -672,7 +672,7 @@ def pub_notion(a, html, img):
 
 def pub_livejournal(a, html, img):
     lj = xmlrpc.client.ServerProxy("https://www.livejournal.com/interface/xmlrpc")
-    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>\n{html}'
+    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]} - AI Angels companion" title="{get_seo_title(a)}"/><br/>\n{html}'
     now = datetime.now()
     r = lj.LJ.XMLRPC.postevent({"username": os.getenv("LJ_USERNAME"), "hpassword": hashlib.md5(os.getenv("LJ_PASSWORD").encode()).hexdigest(),
         "ver": 1, "subject": get_seo_title(a), "event": full, "lineendings": "unix", "security": "public",
@@ -693,7 +693,7 @@ def pub_writeas(a, md):
     return f"https://write.as/aiangels/{r.json()['data']['slug']}" if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_wordpress(a, html, img):
-    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>{html}'
+    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]} - AI Angels companion" title="{get_seo_title(a)}"/><br/>{html}'
     r = requests.post(f"https://{WP_IP}/rest/v1.1/sites/{WP_SITE}/posts/new",
         headers={"Authorization": f"Bearer {WP_TOKEN}", "Host": "public-api.wordpress.com", "Content-Type": "application/x-www-form-urlencoded"},
         data={"title": get_seo_title(a), "content": full, "tags": ",".join([a["keyword"], "AI Angels", "AI companion"]), "categories": "AI Companions", "status": "publish"}, verify=False, timeout=30)
@@ -726,7 +726,7 @@ def pub_mataroa(a, md, img):
 
 def pub_dreamwidth(a, html, img):
     dw = xmlrpc.client.ServerProxy("https://www.dreamwidth.org/interface/xmlrpc")
-    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>\n{html}'
+    full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]} - AI Angels companion" title="{get_seo_title(a)}"/><br/>\n{html}'
     now = datetime.now()
     r = dw.LJ.XMLRPC.postevent({"username": "aiangels", "password": "grwgrwhw35256?53", "ver": 1,
         "subject": get_seo_title(a), "event": full, "lineendings": "unix", "security": "public",
