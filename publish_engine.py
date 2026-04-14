@@ -882,13 +882,64 @@ def pub_bearblog(session, a, md):
     }, headers={"Referer": f"{DASH}/posts/new/"}, allow_redirects=True)
     return f"https://aiangels-companions.bearblog.dev/{a['slug'].lower()}/"
 
+def _get_contentful_system_tags(a):
+    """Generate system tag IDs for a Contentful entry based on article type"""
+    import re
+    slug = a["slug"]
+    atype = a.get("article_type", "general")
+
+    # Base tags everyone gets
+    tags = ["aiAngels", "virtualGirlfriend"]
+
+    # Create tag ID from slug (camelCase)
+    parts = slug.split("-")
+    tag_id = parts[0] + "".join(p.capitalize() for p in parts[1:])
+    tags.append(tag_id)
+
+    # Type-specific tags
+    if atype == "competitor":
+        tags.extend(["aiCompanion", "aiGirlfriend"])
+    elif atype == "feature":
+        if "memory" in slug: tags.append("deepMemory")
+        if "voice" in slug: tags.append("voiceChat")
+        if "uncensored" in slug: tags.append("uncensored")
+        if "free" in slug or "app" in slug: tags.append("freeAi")
+        tags.append("aiCompanion")
+    else:
+        tags.extend(["aiCompanion", "aiGirlfriend"])
+
+    return tags[:5]  # Max 5 tags
+
+def _ensure_contentful_tags(tag_ids, headers):
+    """Create system tags if they don't exist"""
+    for tid in tag_ids:
+        # Convert camelCase to display name
+        import re
+        name = re.sub(r'([A-Z])', r' \1', tid).strip().title().replace("Ai ", "AI ")
+        try:
+            requests.put(f"https://api.contentful.com/spaces/{CONTENTFUL_SPACE}/tags/{tid}",
+                headers=headers,
+                json={"name": name, "sys": {"id": tid, "type": "Tag", "visibility": "public"}})
+        except:
+            pass
+
 def pub_contentful(a, md, img):
     headers = {"Authorization": f"Bearer {CONTENTFUL_TOKEN}", "Content-Type": "application/vnd.contentful.management.v1+json", "X-Contentful-Content-Type": "blogPost"}
     BASE = f"https://api.contentful.com/spaces/{CONTENTFUL_SPACE}/environments/master"
-    entry_data = {"fields": {
-        "title": {"en-US": get_seo_title(a)}, "slug": {"en-US": a["slug"]}, "body": {"en-US": md},
-        "metaDescription": {"en-US": a.get("_platform_meta", f'{a["keyword"]} on AI Angels.')},
-        "featuredImage": {"en-US": img}, "tags": {"en-US": [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]}}}
+
+    # Get system tags for this entry
+    sys_tag_ids = _get_contentful_system_tags(a)
+    _ensure_contentful_tags(sys_tag_ids, headers)
+    metadata_tags = [{"sys": {"type": "Link", "linkType": "Tag", "id": tid}} for tid in sys_tag_ids]
+
+    entry_data = {
+        "fields": {
+            "title": {"en-US": get_seo_title(a)}, "slug": {"en-US": a["slug"]}, "body": {"en-US": md},
+            "metaDescription": {"en-US": a.get("_platform_meta", f'{a["keyword"]} on AI Angels.')},
+            "featuredImage": {"en-US": img}, "tags": {"en-US": [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]}
+        },
+        "metadata": {"tags": metadata_tags}
+    }
     r = requests.put(f"{BASE}/entries/{a['slug']}", headers=headers, json=entry_data)
     if r.status_code in (200, 201):
         v = r.json()["sys"]["version"]
