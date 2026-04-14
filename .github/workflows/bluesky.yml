@@ -1,0 +1,54 @@
+name: Bluesky Scheduler
+
+on:
+  schedule:
+    # Run 3x/day at optimal Bluesky times (UTC)
+    - cron: '7 12 * * *'    # 8 AM EST
+    - cron: '37 17 * * *'   # 1:37 PM EST
+    - cron: '7 23 * * *'    # 7 PM EST
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date (YYYY-MM-DD) or "all"'
+        required: false
+        default: ''
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install atproto python-dotenv
+
+      - name: Create .env
+        run: |
+          echo "BLUESKY_HANDLE=aiangels89.bsky.social" > .env
+          echo "BLUESKY_APP_PASSWORD=${{ secrets.BLUESKY_APP_PASSWORD }}" >> .env
+
+      - name: Run scheduler
+        run: |
+          DATE="${{ github.event.inputs.date || '' }}"
+          if [ "$DATE" = "all" ]; then
+            python3 bluesky_scheduler.py --all
+          elif [ -n "$DATE" ]; then
+            python3 bluesky_scheduler.py --date "$DATE"
+          else
+            python3 bluesky_scheduler.py
+          fi
+
+      - name: Save log
+        if: always()
+        run: |
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+          git add bluesky_post_log.json
+          git diff --cached --quiet || git commit -m "Update Bluesky post log [skip ci]"
+          git push || true
