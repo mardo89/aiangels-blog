@@ -1,0 +1,58 @@
+name: Mastodon Scheduler
+
+on:
+  schedule:
+    # Run 6 times per day at the posting times (UTC)
+    # 8 AM EST = 12:00 UTC, 10 AM = 14:00, 12 PM = 16:00
+    # 3 PM = 19:00, 6 PM = 22:00, 9 PM = 01:00+1
+    - cron: '0 12 * * *'    # 8 AM EST
+    - cron: '30 14 * * *'   # 10:30 AM EST
+    - cron: '0 17 * * *'    # 1 PM EST
+    - cron: '0 19 * * *'    # 3 PM EST
+    - cron: '0 22 * * *'    # 6 PM EST
+    - cron: '0 1 * * *'     # 9 PM EST
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date to post (YYYY-MM-DD) or "all"'
+        required: false
+        default: ''
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+
+      - name: Create .env
+        run: |
+          echo "MASTODON_ACCESS_TOKEN=${{ secrets.MASTODON_ACCESS_TOKEN }}" > .env
+
+      - name: Run Mastodon scheduler
+        run: |
+          DATE="${{ github.event.inputs.date || '' }}"
+          if [ "$DATE" = "all" ]; then
+            python3 mastodon_scheduler.py --all
+          elif [ -n "$DATE" ]; then
+            python3 mastodon_scheduler.py --date "$DATE"
+          else
+            python3 mastodon_scheduler.py
+          fi
+
+      - name: Save post log
+        if: always()
+        run: |
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+          git add mastodon_post_log.json mastodon_schedule.json
+          git diff --cached --quiet || git commit -m "Update Mastodon post log [skip ci]"
+          git push || true
