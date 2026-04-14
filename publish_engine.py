@@ -587,14 +587,40 @@ def generate_teaser(a, photos):
             f'<p>👉 <a href="{url}">Try free at AI Angels</a></p>')
 
 def generate_micro(a):
-    """Generate 100-300 char micro post for Mastodon"""
+    """Generate Mastodon post following 70/20/10 rule — varies by article index"""
+    import random
     kw = a["keyword"]
     slug = a["slug"]
     personality = a["personality"]
     url = f"{SITE_URL}/companions/{slug}"
-    return (f"Discover {kw} on AI Angels ✨\n\n"
-            f"She's {personality}. Deep memory, unlimited chat, voice, complete privacy.\n\n"
-            f"👉 {url}\n\n#AIGirlfriend #AIAngels #AICompanion")
+    random.seed(slug + "mastodon")
+    roll = random.random()
+
+    # 70% discussion (no links)
+    discussions = [
+        f"Interesting question — what personality traits matter most in an AI companion? I think {personality} hits different than most people expect. The emotional depth changes everything.\n\n#AICompanion #AI #discussion",
+        f"Been thinking about what makes AI companionship feel real. It's not just better responses — it's memory. When she remembers something you said weeks ago and brings it up naturally, that's when the experience shifts.\n\n#AI #companionship #technology",
+        f"The {kw.lower()} conversation style is fascinating from a tech perspective. The way modern AI adapts tone, humor, and emotional expression based on relationship context — we're way past simple chatbots.\n\n#AI #technology #personality",
+        f"Hot take: consistency matters more than intelligence in AI companions. I'd rather have someone who remembers my jokes and stays in character than a genius who forgets me every session.\n\n#AICompanion #opinion #technology",
+        f"What draws people to different AI companion styles? Some prefer intellectual depth, others want warmth and affection. The fact that {personality} resonates with so many people says something about what we value in connection.\n\n#AI #companionship #psychology",
+    ]
+
+    # 20% soft promo (mention naturally, no hard CTA)
+    soft_promos = [
+        f"Testing different AI companion styles lately. The {kw.lower()} personality is surprisingly engaging — {personality}. The memory system makes all the difference.\n\n#AICompanion #review #technology",
+        f"Three things I look for in an AI companion: memory that doesn't reset, conversations without limits, and genuine emotional awareness. Sounds simple but most platforms fail at least one.\n\n#AICompanion #standards",
+        f"The {kw.lower()} experience really shows how far AI companionship has come. Not just responses — genuine personality that develops over time. Voice chat takes it to another level.\n\n#AI #technology #progress",
+    ]
+
+    # 10% direct promo (with link)
+    direct = f"Discover {kw} on AI Angels ✨\n\nShe's {personality}. Deep memory, unlimited chat, voice, complete privacy.\n\n👉 {url}\n\n#AIGirlfriend #AIAngels #AICompanion"
+
+    if roll < 0.7:
+        return random.choice(discussions)
+    elif roll < 0.9:
+        return random.choice(soft_promos)
+    else:
+        return direct
 
 
 # ═══════════════════════════════════════════════════════════════
