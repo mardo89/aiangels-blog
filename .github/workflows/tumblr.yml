@@ -1,0 +1,51 @@
+name: Tumblr Scheduler
+
+on:
+  schedule:
+    # 3x/day at posting times (UTC) — safe organic pace
+    - cron: '3 13 * * *'    # 9 AM EST
+    - cron: '33 18 * * *'   # 2:33 PM EST
+    - cron: '3 1 * * *'     # 9 PM EST
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date (YYYY-MM-DD) or "all"'
+        required: false
+        default: ''
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests-oauthlib python-dotenv
+      - name: Create .env
+        run: |
+          cat > .env << 'EOF'
+          TUMBLR_CONSUMER_KEY=${{ secrets.TUMBLR_CONSUMER_KEY }}
+          TUMBLR_CONSUMER_SECRET=${{ secrets.TUMBLR_CONSUMER_SECRET }}
+          TUMBLR_OAUTH_TOKEN=${{ secrets.TUMBLR_OAUTH_TOKEN }}
+          TUMBLR_OAUTH_SECRET=${{ secrets.TUMBLR_OAUTH_SECRET }}
+          EOF
+      - name: Run scheduler
+        run: |
+          DATE="${{ github.event.inputs.date || '' }}"
+          if [ "$DATE" = "all" ]; then
+            python3 tumblr_scheduler.py --all
+          elif [ -n "$DATE" ]; then
+            python3 tumblr_scheduler.py --date "$DATE"
+          else
+            python3 tumblr_scheduler.py
+          fi
+      - name: Save log
+        if: always()
+        run: |
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+          git add tumblr_post_log.json
+          git diff --cached --quiet || git commit -m "Update Tumblr post log [skip ci]"
+          git push || true
