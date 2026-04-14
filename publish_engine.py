@@ -106,6 +106,66 @@ def get_all_slugs(articles):
     return existing + [s for s in new_slugs if s not in existing]
 
 # ═══════════════════════════════════════════════════════════════
+# SEO TITLE GENERATOR
+# ═══════════════════════════════════════════════════════════════
+SEO_TITLES = {
+    # General
+    "ai-girlfriend": "AI Girlfriend: Create Your Perfect Virtual Companion",
+    "hot-ai-girlfriend": "Hot AI Girlfriend: Stunning, Confident & Always Yours",
+    "real-ai-girlfriend": "Real AI Girlfriend: The Most Realistic Experience in 2026",
+    "create-ai-girlfriend": "Create AI Girlfriend: Build Your Dream Companion Free",
+    # Feature
+    "ai-girlfriend-app": "Best AI Girlfriend App 2026: Free, Unlimited & Private",
+    "ai-girlfriend-memory": "AI Girlfriend Memory: She Never Forgets a Thing About You",
+    "uncensored-ai-girlfriend": "Uncensored AI Girlfriend: No Filters, No Limits, No Restrictions",
+    "unlimited-ai-girlfriend-chat": "Unlimited AI Girlfriend Chat: Talk Forever, Zero Restrictions",
+    "ai-girlfriend-voice-chat": "AI Girlfriend Voice Chat: Hear Her Speak With Real Emotion",
+    "ai-girlfriend-always-available": "AI Girlfriend Always Available: 24/7 Companion Who Never Sleeps",
+    "realistic-ai-companions": "Realistic AI Companions: The Most Lifelike Experience in 2026",
+    "ai-girlfriend-emotional-support": "AI Girlfriend Emotional Support: She Truly Understands You",
+    "customize-ai-girlfriend": "Customize AI Girlfriend: Design Every Detail of Your Perfect Match",
+    "smart-ai-girlfriend": "Smart AI Girlfriend: Brilliant Conversations That Challenge You",
+    "ai-girlfriend-images": "AI Girlfriend Images: Visual Connection That Brings Her to Life",
+    # Engagement
+    "ai-girlfriend-roleplay": "AI Girlfriend Roleplay: Immersive Adventures & Creative Scenarios",
+    "ai-girlfriend-relationship-growth": "AI Girlfriend Relationship Growth: A Bond That Deepens Over Time",
+    "consistent-ai-personality": "Consistent AI Personality: She Always Remembers Who She Is",
+    # Competitor
+    "candy-ai-alternative": "Best Candy AI Alternative 2026: Why Users Are Switching to AI Angels",
+    "replika-alternative": "Best Replika Alternative 2026: Unlimited, Uncensored & Smarter",
+    "janitor-ai-alternative": "Best Janitor AI Alternative 2026: Reliable, Fast & No Server Issues",
+    "crushon-ai-alternative": "Best Crushon AI Alternative 2026: Deeper Connection, No Limits",
+    "character-ai-alternative": "Best Character AI Alternative 2026: Unfiltered & Genuinely Personal",
+    "character-ai-nsfw-alternative": "Best Character AI NSFW Alternative: No Filters, Full Freedom",
+    "nomi-ai-alternative": "Best Nomi AI Alternative 2026: Superior Memory & Emotional Depth",
+    "kindroid-alternative": "Best Kindroid Alternative 2026: More Advanced, More Personal",
+    "spicychat-alternative": "Best SpicyChat Alternative 2026: Lasting Relationships, Not Just Chat",
+    "anima-ai-alternative": "Best Anima AI Alternative 2026: Truly Unlimited & Emotionally Aware",
+    "girlfriendgpt-alternative": "Best GirlfriendGPT Alternative 2026: Smarter, More Personal, Free",
+    "romantic-ai-alternative": "Best Romantic AI Alternative 2026: Deep Love, Real Connection",
+    # Hub
+    "features": "AI Angels Features: Everything That Makes Us the Best Platform",
+    "memory": "AI Angels Memory System: How She Remembers Everything About You",
+    "compare": "AI Girlfriend Comparison 2026: AI Angels vs Every Major Platform",
+}
+
+def get_seo_title(a):
+    """Get SEO-optimized title for an article"""
+    slug = a["slug"]
+    if slug in SEO_TITLES:
+        return SEO_TITLES[slug]
+    # Fallback: keyword + personality hook
+    kw = a["keyword"]
+    personality = a["personality"]
+    words = personality.split(" and ")
+    if len(words) >= 2:
+        hook = words[-1].strip().title()
+    else:
+        hook = personality.split(",")[0].strip().title()
+    return f"{kw}: {hook} & Uniquely Yours"
+
+
+# ═══════════════════════════════════════════════════════════════
 # CONTENT GENERATORS
 # ═══════════════════════════════════════════════════════════════
 def get_cross_links(slug, all_slugs, max_links=6):
@@ -551,24 +611,24 @@ def retry(fn, max_retries=3, delay=10):
 
 def pub_blogger_page(blogger, a, html, img):
     full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/></div>\n{html}'
-    r = blogger.pages().insert(blogId=BLOG_ID, body={"title": a["keyword"], "content": full}, isDraft=False).execute()
+    r = blogger.pages().insert(blogId=BLOG_ID, body={"title": get_seo_title(a), "content": full}, isDraft=False).execute()
     return r.get("url", "")
 
 def pub_blogger_post(blogger, a, html, img):
     full = f'<div style="text-align:center;margin-bottom:20px;"><img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/></div>\n{html}'
     tags = [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]
-    r = blogger.posts().insert(blogId=BLOG_ID, body={"title": a["keyword"], "content": full, "labels": tags, "status": "LIVE"}, isDraft=False).execute()
+    r = blogger.posts().insert(blogId=BLOG_ID, body={"title": get_seo_title(a), "content": full, "labels": tags, "status": "LIVE"}, isDraft=False).execute()
     return r.get("url", "")
 
 def pub_ghost_page(a, html, img):
-    payload = {"pages": [{"title": a["keyword"] + " — Complete Guide", "html": html, "feature_image": img,
+    payload = {"pages": [{"title": get_seo_title(a) + " — Complete Guide", "html": html, "feature_image": img,
                           "feature_image_alt": a["keyword"], "slug": f"guide-{a['slug']}", "status": "published",
                           "tags": [{"name": t} for t in [a["keyword"], "AI Angels", "AI companion"]]}]}
     r = requests.post(f"{GHOST_URL}/ghost/api/admin/pages/?source=html", json=payload, headers=ghost_headers())
     return r.json()["pages"][0].get("url", "") if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_ghost_post(a, html, img):
-    payload = {"posts": [{"title": a["keyword"], "html": html, "feature_image": img,
+    payload = {"posts": [{"title": get_seo_title(a), "html": html, "feature_image": img,
                           "feature_image_alt": a["keyword"], "slug": a["slug"], "status": "published",
                           "tags": [{"name": t} for t in [a["keyword"], "AI Angels", "AI companion"]]}]}
     r = requests.post(f"{GHOST_URL}/ghost/api/admin/posts/?source=html", json=payload, headers=ghost_headers())
@@ -586,7 +646,7 @@ def pub_telegraph(a, html, img):
             text = re.sub(r'<[^>]+>', '', s).strip()
             if text: content.append({"tag": "p", "children": [text[:2000]]})
     content.append({"tag": "p", "children": [{"tag": "a", "attrs": {"href": f"{SITE_URL}/companions/{a['slug']}"}, "children": [f"Try {a['keyword']} on AI Angels"]}]})
-    r = requests.post("https://api.telegra.ph/createPage", data={"access_token": tg_token, "title": a["keyword"], "author_name": "AI Angels", "author_url": SITE_URL, "content": json.dumps(content)})
+    r = requests.post("https://api.telegra.ph/createPage", data={"access_token": tg_token, "title": get_seo_title(a), "author_name": "AI Angels", "author_url": SITE_URL, "content": json.dumps(content)})
     d = r.json()
     return d["result"]["url"] if d.get("ok") else f"ERR:{d}"
 
@@ -606,7 +666,7 @@ def pub_notion(a, html, img):
     blocks.append({"object": "block", "type": "image", "image": {"type": "external", "external": {"url": img}}})
     r = requests.post("https://api.notion.com/v1/pages", json={
         "parent": {"type": "page_id", "page_id": n_pg}, "cover": {"type": "external", "external": {"url": img}},
-        "icon": {"type": "emoji", "emoji": "🤖"}, "properties": {"title": {"title": [{"type": "text", "text": {"content": a["keyword"]}}]}},
+        "icon": {"type": "emoji", "emoji": "🤖"}, "properties": {"title": {"title": [{"type": "text", "text": {"content": get_seo_title(a)}}]}},
         "children": blocks[:100]}, headers={"Authorization": f"Bearer {n_tok}", "Notion-Version": "2022-06-28", "Content-Type": "application/json"})
     return r.json().get("url", "") if r.status_code == 200 else f"ERR:{r.status_code}"
 
@@ -615,7 +675,7 @@ def pub_livejournal(a, html, img):
     full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>\n{html}'
     now = datetime.now()
     r = lj.LJ.XMLRPC.postevent({"username": os.getenv("LJ_USERNAME"), "hpassword": hashlib.md5(os.getenv("LJ_PASSWORD").encode()).hexdigest(),
-        "ver": 1, "subject": a["keyword"], "event": full, "lineendings": "unix", "security": "public",
+        "ver": 1, "subject": get_seo_title(a), "event": full, "lineendings": "unix", "security": "public",
         "year": now.year, "mon": now.month, "day": now.day, "hour": now.hour, "min": now.minute,
         "props": {"opt_preformatted": 1, "taglist": ", ".join([a["keyword"], "AI Angels", "AI companion"][:5])}})
     return f"https://{os.getenv('LJ_USERNAME')}.livejournal.com/{r['itemid']}.html"
@@ -623,20 +683,20 @@ def pub_livejournal(a, html, img):
 def pub_tumblr(a, teaser):
     oauth = OAuth1Session(os.getenv("TUMBLR_CONSUMER_KEY"), client_secret=os.getenv("TUMBLR_CONSUMER_SECRET"),
         resource_owner_key=os.getenv("TUMBLR_OAUTH_TOKEN"), resource_owner_secret=os.getenv("TUMBLR_OAUTH_SECRET"))
-    r = oauth.post("https://api.tumblr.com/v2/blog/aiangelsofficial/post", data={"type": "text", "state": "published", "title": a["keyword"], "body": teaser, "tags": ",".join([a["keyword"], "AI Angels", "AI companion"])})
+    r = oauth.post("https://api.tumblr.com/v2/blog/aiangelsofficial/post", data={"type": "text", "state": "published", "title": get_seo_title(a), "body": teaser, "tags": ",".join([a["keyword"], "AI Angels", "AI companion"])})
     pid = r.json().get("response", {}).get("id", "")
     return f"https://www.tumblr.com/blog/view/aiangelsofficial/{pid}"
 
 def pub_writeas(a, md):
     wa_h = {"Authorization": f"Token {os.getenv('WRITEAS_TOKEN')}", "Content-Type": "application/json"}
-    r = requests.post("https://write.as/api/collections/aiangels/posts", json={"title": a["keyword"], "body": md, "font": "sans"}, headers=wa_h)
+    r = requests.post("https://write.as/api/collections/aiangels/posts", json={"title": get_seo_title(a), "body": md, "font": "sans"}, headers=wa_h)
     return f"https://write.as/aiangels/{r.json()['data']['slug']}" if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_wordpress(a, html, img):
     full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>{html}'
     r = requests.post(f"https://{WP_IP}/rest/v1.1/sites/{WP_SITE}/posts/new",
         headers={"Authorization": f"Bearer {WP_TOKEN}", "Host": "public-api.wordpress.com", "Content-Type": "application/x-www-form-urlencoded"},
-        data={"title": a["keyword"], "content": full, "tags": ",".join([a["keyword"], "AI Angels", "AI companion"]), "categories": "AI Companions", "status": "publish"}, verify=False, timeout=30)
+        data={"title": get_seo_title(a), "content": full, "tags": ",".join([a["keyword"], "AI Angels", "AI companion"]), "categories": "AI Companions", "status": "publish"}, verify=False, timeout=30)
     return r.json().get("URL", "") if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_github_pages(a, md, img):
@@ -645,13 +705,13 @@ def pub_github_pages(a, md, img):
     fp = os.path.join(gh_dir, fn)
     tags = " ".join(t.lower().replace(" ", "-") for t in [a["keyword"], "AI Angels", "AI companion"][:3])
     with open(fp, 'w') as f:
-        f.write(f'---\nlayout: post\ntitle: "{a["keyword"]}"\ndate: 2026-04-14\ntags: [{tags}]\nimage: {img}\n---\n\n![{a["keyword"]}]({img})\n\n{md}\n')
+        f.write(f'---\nlayout: post\ntitle: "{get_seo_title(a)}"\ndate: 2026-04-14\ntags: [{tags}]\nimage: {img}\n---\n\n![{a["keyword"]}]({img})\n\n{md}\n')
     return fn
 
 def pub_buttondown(a, md, img):
     bd_h = {"Authorization": f"Token {os.getenv('BUTTONDOWN_API_KEY')}", "Content-Type": "application/json", "X-Buttondown-Live-Dangerously": "true"}
     full_md = f"![{a['keyword']}]({img})\n\n{md}"
-    r = requests.post("https://api.buttondown.com/v1/emails", json={"subject": a["keyword"], "body": full_md, "status": "about_to_send"}, headers=bd_h)
+    r = requests.post("https://api.buttondown.com/v1/emails", json={"subject": get_seo_title(a), "body": full_md, "status": "about_to_send"}, headers=bd_h)
     return r.json().get("slug", "") if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_mastodon(a, micro):
@@ -661,7 +721,7 @@ def pub_mastodon(a, micro):
 
 def pub_mataroa(a, md, img):
     mat_h = {"Authorization": f"Bearer {os.getenv('MATAROA_API_KEY')}", "Content-Type": "application/json"}
-    r = requests.post("https://mataroa.blog/api/posts/", json={"title": a["keyword"], "slug": a["slug"], "body": f"![{a['keyword']}]({img})\n\n{md}", "published_at": "2026-04-14"}, headers=mat_h)
+    r = requests.post("https://mataroa.blog/api/posts/", json={"title": get_seo_title(a), "slug": a["slug"], "body": f"![{a['keyword']}]({img})\n\n{md}", "published_at": "2026-04-14"}, headers=mat_h)
     return a["slug"] if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_dreamwidth(a, html, img):
@@ -669,7 +729,7 @@ def pub_dreamwidth(a, html, img):
     full = f'<img src="{img}" style="max-width:100%;border-radius:10px;" alt="{a["keyword"]}"/><br/>\n{html}'
     now = datetime.now()
     r = dw.LJ.XMLRPC.postevent({"username": "aiangels", "password": "grwgrwhw35256?53", "ver": 1,
-        "subject": a["keyword"], "event": full, "lineendings": "unix", "security": "public",
+        "subject": get_seo_title(a), "event": full, "lineendings": "unix", "security": "public",
         "year": now.year, "mon": now.month, "day": now.day, "hour": now.hour, "min": now.minute,
         "props": {"opt_preformatted": 1, "taglist": ", ".join([a["keyword"], "AI Angels"][:5])}})
     return f"https://aiangels.dreamwidth.org/{r['itemid']}.html"
@@ -684,14 +744,15 @@ def pub_gist(a, md, img):
 def pub_hubspot(a, html, img):
     headers = {"Authorization": f"Bearer {HUBSPOT_TOKEN}", "Content-Type": "application/json"}
     r = requests.post("https://api.hubapi.com/cms/v3/blogs/posts", headers=headers, json={
-        "name": a["keyword"], "contentGroupId": HUBSPOT_BLOG_ID, "slug": a["slug"],
+        "name": get_seo_title(a), "contentGroupId": HUBSPOT_BLOG_ID, "slug": a["slug"],
         "postBody": f'<img src="{img}" alt="{a["keyword"]}" style="max-width:100%;border-radius:10px;"/>{html}',
         "metaDescription": f'{a["keyword"]} - AI Angels. {a["personality"].capitalize()}.', "blogAuthorId": HUBSPOT_AUTHOR,
         "featuredImage": img, "useFeaturedImage": True, "state": "PUBLISHED"})
     return r.json().get("url", "") if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 def pub_prose(a, md, img):
-    full = f"---\ntitle: \"{a['keyword']}\"\ndescription: \"{a['keyword']} on AI Angels\"\ndate: 2026-04-14\ntags: [ai-girlfriend, ai-angels, ai-companion]\n---\n\n![{a['keyword']}]({img})\n\n{md}"
+    title = get_seo_title(a)
+    full = f"---\ntitle: \"{title}\"\ndescription: \"{a['keyword']} on AI Angels\"\ndate: 2026-04-14\ntags: [ai-girlfriend, ai-angels, ai-companion]\n---\n\n![{a['keyword']}]({img})\n\n{md}"
     result = subprocess.run(["ssh", "-i", SSH_KEY, "-o", "StrictHostKeyChecking=accept-new", "prose.sh", f"{a['slug']}.md"],
         input=full.encode(), capture_output=True, timeout=15)
     return result.stdout.decode().strip()
@@ -702,7 +763,7 @@ def pub_bearblog(session, a, md):
     soup = BeautifulSoup(r.text, "html.parser")
     csrf = soup.find("input", {"name": "csrfmiddlewaretoken"})["value"]
     session.post(f"{DASH}/posts/new/", data={
-        "csrfmiddlewaretoken": csrf, "header_content": f"title: {a['keyword']}", "body_content": md, "publish": "true",
+        "csrfmiddlewaretoken": csrf, "header_content": f"title: {get_seo_title(a)}", "body_content": md, "publish": "true",
     }, headers={"Referer": f"{DASH}/posts/new/"}, allow_redirects=True)
     return f"https://aiangels-companions.bearblog.dev/{a['slug'].lower()}/"
 
@@ -710,7 +771,7 @@ def pub_contentful(a, md, img):
     headers = {"Authorization": f"Bearer {CONTENTFUL_TOKEN}", "Content-Type": "application/vnd.contentful.management.v1+json", "X-Contentful-Content-Type": "blogPost"}
     BASE = f"https://api.contentful.com/spaces/{CONTENTFUL_SPACE}/environments/master"
     entry_data = {"fields": {
-        "title": {"en-US": a["keyword"]}, "slug": {"en-US": a["slug"]}, "body": {"en-US": md},
+        "title": {"en-US": get_seo_title(a)}, "slug": {"en-US": a["slug"]}, "body": {"en-US": md},
         "metaDescription": {"en-US": f'{a["keyword"]} on AI Angels. {a["personality"].capitalize()}.'},
         "featuredImage": {"en-US": img}, "tags": {"en-US": [a["keyword"], "AI Angels", "AI companion", "AI girlfriend"]}}}
     r = requests.put(f"{BASE}/entries/{a['slug']}", headers=headers, json=entry_data)
