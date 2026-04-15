@@ -42,6 +42,11 @@ HUBSPOT_BLOG_ID = "391510471871"
 HUBSPOT_AUTHOR = "391537961178"
 CONTENTFUL_TOKEN = os.getenv("CONTENTFUL_TOKEN", "")
 CONTENTFUL_SPACE = os.getenv("CONTENTFUL_SPACE", "i5d9gs7p2uva")
+SANITY_PID = os.getenv("SANITY_PROJECT_ID", "600qhv0q")
+SANITY_DS = os.getenv("SANITY_DATASET", "production")
+SANITY_TOKEN = os.getenv("SANITY_TOKEN", "")
+STRAPI_URL = os.getenv("STRAPI_URL", "")
+STRAPI_TOKEN = os.getenv("STRAPI_TOKEN", "")
 SSH_KEY = os.path.expanduser("~/.ssh/id_ed25519")
 
 CSV_PATH = os.path.join(BASE_DIR, "articles.csv")
@@ -143,6 +148,19 @@ SEO_TITLES = {
     "anima-ai-alternative": "Best Anima AI Alternative 2026: Truly Unlimited & Emotionally Aware",
     "girlfriendgpt-alternative": "Best GirlfriendGPT Alternative 2026: Smarter, More Personal, Free",
     "romantic-ai-alternative": "Best Romantic AI Alternative 2026: Deep Love, Real Connection",
+    # Discount
+    "ai-angels-discount-code": "AI Angels Discount Code 2026: Get 50% Off — ANGEL50",
+    "ai-girlfriend-discount-code": "AI Girlfriend Discount Code 2026: Save 50% on AI Angels",
+    "ai-angels-promo-code": "AI Angels Promo Code ANGEL50: 50% Off First Month (2026)",
+    "ai-angels-coupon": "AI Angels Coupon 2026: Working Code for 50% Off",
+    "nsfw-ai-discount": "NSFW AI Discount Code 2026: 50% Off Uncensored AI Chat",
+    "ai-girlfriend-free-trial": "AI Girlfriend Free Trial 2026: Try AI Angels Free + 50% Off",
+    "ai-companion-deals": "Best AI Companion Deals 2026: 50% Off AI Angels Discount",
+    "uncensored-ai-chat-discount": "Uncensored AI Chat Discount 2026: Code ANGEL50 — 50% Off",
+    "ai-girlfriend-subscription-deal": "AI Girlfriend Subscription Deal 2026: Half Price on AI Angels",
+    "cheap-ai-girlfriend": "Cheapest AI Girlfriend 2026: AI Angels 50% Off — No Compromise",
+    "best-ai-girlfriend-deal-2026": "Best AI Girlfriend Deal 2026: AI Angels 50% Off Code ANGEL50",
+    "ai-angels-student-discount": "AI Angels Student Discount 2026: 50% Off for Students",
     # Hub
     "features": "AI Angels Features: Everything That Makes Us the Best Platform",
     "memory": "AI Angels Memory System: How She Remembers Everything About You",
@@ -367,8 +385,8 @@ def generate_html_full(a, photos, all_slugs):
 
 <div style="background:{gradient};padding:30px;border-radius:14px;text-align:center;margin:25px 0;">
 <h3 style="color:white;margin:0 0 12px;font-size:1.4em;">Ready to Upgrade from {competitor_name}?</h3>
-<p style="color:#f0f0f0;margin:0 0 18px;">Join thousands who switched for a better experience.</p>
-<a href="{url}" style="background:white;color:{cta_color};padding:14px 35px;border-radius:25px;text-decoration:none;font-weight:bold;font-size:1.1em;display:inline-block;">Try AI Angels Free</a>
+<p style="color:#f0f0f0;margin:0 0 18px;">Join thousands who switched. Use code <strong>ANGEL50</strong> for 50% off your first month.</p>
+<a href="{url}" style="background:white;color:{cta_color};padding:14px 35px;border-radius:25px;text-decoration:none;font-weight:bold;font-size:1.1em;display:inline-block;">Try AI Angels — 50% Off</a>
 </div>"""
     else:
         # General / Feature / Engagement / Hub — each gets unique structure
@@ -451,8 +469,8 @@ def generate_html_full(a, photos, all_slugs):
 
 <div style="background:{gradient};padding:30px;border-radius:14px;text-align:center;margin:25px 0;">
 <h3 style="color:white;margin:0 0 12px;font-size:1.4em;">Experience {kw} Today</h3>
-<p style="color:#f0f0f0;margin:0 0 18px;">Join thousands of happy users on AI Angels.</p>
-<a href="{url}" style="background:white;color:{cta_color};padding:14px 35px;border-radius:25px;text-decoration:none;font-weight:bold;font-size:1.1em;display:inline-block;">Get Started Free</a>
+<p style="color:#f0f0f0;margin:0 0 18px;">Use code <strong>ANGEL50</strong> for 50% off your first month.</p>
+<a href="{url}" style="background:white;color:{cta_color};padding:14px 35px;border-radius:25px;text-decoration:none;font-weight:bold;font-size:1.1em;display:inline-block;">Get 50% Off — Code ANGEL50</a>
 </div>"""
     return html
 
@@ -523,7 +541,7 @@ Looking for a {kw}? AI Angels offers everything {competitor} does and more — s
 
 ---
 
-**[Try AI Angels Free — Switch from {competitor}]({url})**"""
+**[Try AI Angels — 50% Off with Code ANGEL50]({url})**"""
     else:
         return f"""![{kw}]({img1})
 
@@ -572,7 +590,7 @@ Every companion on AI Angels is {personality}. Advanced neural networks create e
 
 ---
 
-**[Try {kw} Free]({url})**"""
+**[Get 50% Off — Use Code ANGEL50]({url})**"""
 
 def generate_teaser(a, photos):
     """Generate 200-400 word teaser for Tumblr"""
@@ -646,6 +664,8 @@ PLATFORM_TITLE_SUFFIXES = {
     "Prose.sh":      " — AI Angels",
     "Bear Blog":     "",
     "Contentful":    " | AI Angels",
+    "Sanity":        " — AI Angels CMS",
+    "Strapi":        " — AI Angels Content",
 }
 
 # Each platform gets a different image index (0-6) ensuring unique images
@@ -669,6 +689,8 @@ PLATFORM_IMAGE_INDEX = {
     "Prose.sh":     2,
     "Bear Blog":    3,
     "Contentful":   4,
+    "Sanity":       5,
+    "Strapi":       6,
 }
 
 PLATFORM_META_TEMPLATES = {
@@ -691,6 +713,8 @@ PLATFORM_META_TEMPLATES = {
     "Prose.sh":      "{kw} — minimalist guide to AI Angels. Deep memory, unlimited chat, genuine connection.",
     "Bear Blog":     "{kw} on AI Angels. Simple, honest companion experience with deep memory and voice chat.",
     "Contentful":    "{kw} content entry for AI Angels. Structured companion data with full feature details.",
+    "Sanity":        "{kw} on AI Angels CMS. Headless content with deep memory, voice chat, and emotional intelligence.",
+    "Strapi":        "{kw} on AI Angels Content. Full-featured AI companion with unlimited chat and genuine connection.",
 }
 
 def get_platform_title(a, platform):
@@ -899,6 +923,8 @@ def _get_contentful_system_tags(a):
     # Type-specific tags
     if atype == "competitor":
         tags.extend(["aiCompanion", "aiGirlfriend"])
+    elif atype == "discount":
+        tags.extend(["discountCode", "promoCode"])
     elif atype == "feature":
         if "memory" in slug: tags.append("deepMemory")
         if "voice" in slug: tags.append("voiceChat")
@@ -946,6 +972,42 @@ def pub_contentful(a, md, img):
         requests.put(f"{BASE}/entries/{a['slug']}/published", headers={**headers, "X-Contentful-Version": str(v)})
         return a["slug"]
     return f"ERR:{r.status_code}"
+
+def pub_sanity(a, md, img):
+    url = f"https://{SANITY_PID}.api.sanity.io/v2021-06-07/data/mutate/{SANITY_DS}"
+    h = {"Authorization": f"Bearer {SANITY_TOKEN}", "Content-Type": "application/json"}
+    title = get_seo_title(a)
+    meta = a.get("_platform_meta", f'{a["keyword"]} on AI Angels.')
+    body = [
+        {"_type": "block", "_key": "h1", "style": "h2", "children": [{"_type": "span", "_key": "sh1", "text": f"What Is {a['keyword']}?"}]},
+        {"_type": "block", "_key": "p1", "children": [{"_type": "span", "_key": "sp1", "text": a["vibe"]}]},
+        {"_type": "block", "_key": "h2", "style": "h2", "children": [{"_type": "span", "_key": "sh2", "text": "Why AI Angels Stands Out"}]},
+        {"_type": "block", "_key": "p2", "children": [{"_type": "span", "_key": "sp2", "text": "Deep memory that never resets. Unlimited conversations without caps. Natural voice chat with emotional expression. Genuine emotional intelligence. Complete end-to-end privacy. Photo sharing and visual content."}]},
+        {"_type": "block", "_key": "h3", "style": "h2", "children": [{"_type": "span", "_key": "sh3", "text": "Get Started Free"}]},
+        {"_type": "block", "_key": "p3", "children": [{"_type": "span", "_key": "sp3", "text": f"Visit aiangels.io and create your free account. Choose appearance, set personality, start chatting. Visit aiangels.io/companions for all styles."}]},
+    ]
+    r = requests.post(url, json={"mutations": [{"create": {
+        "_type": "article", "title": title, "slug": {"_type": "slug", "current": a["slug"]},
+        "keyword": a["keyword"], "description": meta, "featuredImage": img,
+        "tags": [a["keyword"], "AI Angels", "AI companion"], "articleType": a.get("article_type", "general"), "body": body
+    }}]}, headers=h)
+    return a["slug"] if r.status_code == 200 else f"ERR:{r.status_code}"
+
+def pub_strapi(a, md, img):
+    h = {"Authorization": f"Bearer {STRAPI_TOKEN}", "Content-Type": "application/json"}
+    title = get_seo_title(a)
+    meta = a.get("_platform_meta", f'{a["keyword"]} on AI Angels.')
+    # Wake up Strapi if sleeping
+    for _ in range(3):
+        r = requests.get(f"{STRAPI_URL}/api/articles?pagination[limit]=1", headers=h, timeout=30)
+        if r.status_code == 200: break
+        time.sleep(15)
+    r = requests.post(f"{STRAPI_URL}/api/articles", headers=h, json={"data": {
+        "title": title, "slug": a["slug"], "content": md, "description": meta,
+        "featuredImage": img, "tags": f'{a["keyword"]}, AI Angels, AI companion',
+        "keyword": a["keyword"], "articleType": a.get("article_type", "general"),
+    }})
+    return a["slug"] if r.status_code in (200, 201) else f"ERR:{r.status_code}"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1005,6 +1067,8 @@ def publish_batch(articles, photos, all_slugs, publish_log, dry_run=False):
         ("Prose.sh", 2, lambda a, html, md, img, teaser, micro: pub_prose(a, md, img)),
         ("Bear Blog", 2, lambda a, html, md, img, teaser, micro: pub_bearblog(bb_session, a, md)),
         ("Contentful", 2, lambda a, html, md, img, teaser, micro: pub_contentful(a, md, img)),
+        ("Sanity", 2, lambda a, html, md, img, teaser, micro: pub_sanity(a, md, img)),
+        ("Strapi", 2, lambda a, html, md, img, teaser, micro: pub_strapi(a, md, img)),
     ]
 
     for platform_name, delay, pub_fn in PLATFORMS:
