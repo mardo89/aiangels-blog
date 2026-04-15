@@ -274,7 +274,7 @@ def generate_html_full(a, photos, all_slugs):
     personality = a["personality"]
     vibe = a["vibe"]
     atype = a["article_type"]
-    url = f"{SITE_URL}/companions/{slug}" if atype != "hub" else f"{SITE_URL}/{slug}"
+    url = a.get("url", f"{SITE_URL}/companions/{slug}")
     img0 = get_photo(photos, slug, 0)
     img2 = get_photo(photos, slug, 2)
     img4 = get_photo(photos, slug, 4)
@@ -463,7 +463,7 @@ def generate_md_medium(a, photos, all_slugs):
     personality = a["personality"]
     vibe = a["vibe"]
     atype = a["article_type"]
-    url = f"{SITE_URL}/companions/{slug}" if atype != "hub" else f"{SITE_URL}/{slug}"
+    url = a.get("url", f"{SITE_URL}/companions/{slug}")
     img1 = get_photo(photos, slug, 1)
     img3 = get_photo(photos, slug, 3)
     cross = get_cross_links(slug, all_slugs, 4)
