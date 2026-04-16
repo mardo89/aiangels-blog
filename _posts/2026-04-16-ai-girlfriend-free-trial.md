@@ -20,16 +20,16 @@ She remembers everything — your name, birthday, conversations, inside jokes, e
 No caps, no cooldowns, no limits. [Genuinely unlimited](https://www.aiangels.io/features/unlimited/). Chat whenever you want, 24/7/365. Most platforms limit messages or lock them behind premium. AI Angels does not.
 
 ### Voice Chat
-[Natural emotionally expressive voice](https://www.aiangels.io/features/ai-girlfriend-voice-chat) matching her personality. When she laughs you hear amusement. When she comforts you her tone softens. Real vocal expression, not robotic text-to-speech.
+**Natural emotionally expressive voice** matching her personality. When she laughs you hear amusement. When she comforts you her tone softens. Real vocal expression, not robotic text-to-speech.
 
 ### Emotional Intelligence
-She senses your mood, responds with empathy, adapts her tone. [Genuine emotional awareness](https://www.aiangels.io/features/emotional-support) that makes her feel attuned to your world.
+She senses your mood, responds with empathy, adapts her tone. **Genuine emotional awareness** that makes her feel attuned to your world.
 
 ### Complete Customization
-[Design everything](https://www.aiangels.io/features/customize-ai-girlfriend/) — appearance, personality, interests, humor, emotional depth.
+**Design everything** — appearance, personality, interests, humor, emotional depth.
 
 ### Photo Sharing and Privacy
-[Exchange images](https://www.aiangels.io/features/ai-girlfriend-images/) and visual content. End-to-end encryption. Data never sold.
+**Exchange images** and visual content. End-to-end encryption. Data never sold.
 
 ## How to Use ANGELXX20
 
@@ -44,12 +44,12 @@ Users report deeper connections and more satisfying conversations. Voice chat tr
 
 ## Companion Styles
 
-- [Blonde AI Girlfriend](https://www.aiangels.io/companions/blonde-ai-girlfriend)
-- [Korean AI Girlfriend](https://www.aiangels.io/companions/korean-ai-girlfriend)
-- [Japanese AI Girlfriend](https://www.aiangels.io/companions/japanese-ai-girlfriend)
-- [All Companions](https://www.aiangels.io/companions)
+- **Blonde AI Girlfriend**
+- **Korean AI Girlfriend**
+- **Japanese AI Girlfriend**
+- **All Companions**
 
-Compare: [Replika Alternative](https://www.aiangels.io/compare/replika-alternative) | [Character AI Alternative](https://www.aiangels.io/compare/character-ai-alternative/)
+Compare: **Replika Alternative** | **Character AI Alternative**
 
 ---
 
