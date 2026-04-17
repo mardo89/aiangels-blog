@@ -1,0 +1,56 @@
+# AI Angels
+
+> AI Angels is an AI companion platform with customizable AI girlfriends featuring long-term memory, voice chat, roleplay, and uncensored conversations. A privacy-focused alternative to Replika, Character.AI, Candy.AI, and similar apps.
+
+AI Angels lets users create and chat with personalized AI companions 24/7. Companions remember past conversations, respond with voice, generate images, and support both emotional-support and adult (NSFW) modes. Consistent personalities, unlimited messaging, and custom appearance/personality design.
+
+## Landing Pages
+
+- [AI Girlfriend](https://www.aiangels.io/ai-girlfriend): Main landing page — what AI Angels is, how it works, core features.
+- [AI Girlfriend App](https://www.aiangels.io/ai-girlfriend-app): Mobile and web app overview, download/signup.
+- [Create AI Girlfriend](https://www.aiangels.io/create-ai-girlfriend): Builder flow — appearance, personality, voice, backstory.
+- [Real AI Girlfriend](https://www.aiangels.io/real-ai-girlfriend): Realism features — memory, emotional depth, consistent persona.
+- [Hot AI Girlfriend](https://www.aiangels.io/hot-ai-girlfriend): Adult-oriented companion experience.
+- [AI Sexy Chat](https://www.aiangels.io/ai-sexy-chat): Adult chat features, NSFW modes.
+- [AI Sexting Chat](https://www.aiangels.io/ai-sexting-chat): Sexting-focused conversation mode.
+- [AI Chat 18+](https://www.aiangels.io/ai-chat-18): Age-gated adult chat overview.
+- [AI JOI Chat](https://www.aiangels.io/ai-jerk-off-chat): JOI-style adult chat feature.
+
+## Competitor Comparisons
+
+- [vs Replika](https://www.aiangels.io/compare/replika-alternative): AI Angels vs Replika — memory, NSFW policy, pricing.
+- [vs Character.AI](https://www.aiangels.io/compare/character-ai-alternative): Differences in filters, persistence, customization.
+- [Character.AI NSFW Alternative](https://www.aiangels.io/compare/character-ai-nsfw-alternative): Unfiltered alternative to Character.AI.
+- [vs Candy.AI](https://www.aiangels.io/compare/candy-ai-alternative): Feature and pricing comparison.
+- [vs CrushOn.AI](https://www.aiangels.io/compare/crushon-ai-alternative): Side-by-side breakdown.
+- [vs Janitor AI](https://www.aiangels.io/compare/janitor-ai-alternative): Reliability, memory, NSFW handling.
+- [vs SpicyChat](https://www.aiangels.io/compare/spicychat-alternative): Comparison across core features.
+- [vs Nomi AI](https://www.aiangels.io/compare/nomi-ai-alternative): Companion depth and personality comparison.
+- [vs Kindroid](https://www.aiangels.io/compare/kindroid-alternative): Memory and customization comparison.
+- [vs GirlfriendGPT](https://www.aiangels.io/compare/girlfriendgpt-alternative): Feature comparison.
+- [vs Anima AI](https://www.aiangels.io/compare/anima-ai-alternative): Personality depth and pricing.
+- [vs Romantic AI](https://www.aiangels.io/compare/romantic-ai-alternative): Feature and safety comparison.
+
+## Features
+
+- [Uncensored AI Girlfriend](https://www.aiangels.io/features/uncensored-ai-girlfriend): No-filter chat mode.
+- [AI Girlfriend Memory](https://www.aiangels.io/features/ai-girlfriend-memory): Long-term memory — how it works.
+- [Voice Chat](https://www.aiangels.io/features/ai-girlfriend-voice-chat): Real-time voice conversations.
+- [AI Girlfriend Images](https://www.aiangels.io/features/ai-girlfriend-images): Image generation and selfies.
+- [Roleplay](https://www.aiangels.io/features/ai-girlfriend-roleplay): Scenario-based roleplay chat.
+- [Customize AI Girlfriend](https://www.aiangels.io/features/customize-ai-girlfriend): Personality, appearance, voice customization.
+- [Always Available 24/7](https://www.aiangels.io/features/ai-girlfriend-always-available): 24/7 availability.
+- [Unlimited Chat](https://www.aiangels.io/features/unlimited-ai-girlfriend-chat): No message limits.
+- [Emotional Support](https://www.aiangels.io/features/emotional-support): Companion for loneliness and emotional connection.
+- [Realistic Companions](https://www.aiangels.io/features/realistic-companions): Lifelike conversation quality.
+- [Smart AI Girlfriend](https://www.aiangels.io/features/smart-ai-girlfriend): Intelligent, deep conversations.
+- [Relationship Growth](https://www.aiangels.io/features/relationship-growth): How AI relationships evolve over time.
+- [Consistent Personality](https://www.aiangels.io/features/consistent-personality): Stable, in-character AI behavior.
+
+## Sitemap
+
+- [Full XML Sitemap](https://www.aiangels.io/sitemap.xml): All public URLs.
+
+## Optional
+
+- [Companion Categories](https://www.aiangels.io/companions): 40+ companion types by ethnicity, style, and personality (blonde, asian, latina, goth, dominant, etc.).

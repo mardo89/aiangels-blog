@@ -1,0 +1,100 @@
+name: ChatGPT Citation Checker
+
+on:
+  schedule:
+    # Weekly — Monday 09:00 UTC (5 AM EST)
+    - cron: '23 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      priority:
+        description: 'Priority filter (1, 2, 3, 4, or blank for all)'
+        required: false
+        default: ''
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install openai requests
+
+      - name: Run citation checker
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          PRIORITY="${{ github.event.inputs.priority || '' }}"
+          if [ -n "$PRIORITY" ]; then
+            python3 chatgpt_citation_checker.py --priority "$PRIORITY"
+          else
+            python3 chatgpt_citation_checker.py
+          fi
+
+      - name: Print diff vs last run
+        run: |
+          python3 chatgpt_citation_checker.py --diff || true
+
+      - name: Write weekly markdown summary
+        run: |
+          python3 <<'PY'
+          import json, os
+          from datetime import datetime
+
+          with open("chatgpt_citation_log.json") as f:
+              data = json.load(f)
+          latest = data["runs"][-1]
+          s = latest["summary"]
+
+          lines = []
+          lines.append(f"# ChatGPT Citation Report — {latest['started_at'][:10]}")
+          lines.append("")
+          lines.append(f"**Overall:** {s['cited']}/{s['total']} cited "
+                       f"({s['citation_rate']*100:.1f}%)")
+          lines.append("")
+          lines.append("## By page type")
+          lines.append("")
+          lines.append("| Type | Cited | Total | Rate |")
+          lines.append("|---|---|---|---|")
+          for t, v in sorted(s["by_type"].items()):
+              rate = v["cited"] / max(v["total"], 1) * 100
+              lines.append(f"| {t} | {v['cited']} | {v['total']} | {rate:.1f}% |")
+          lines.append("")
+          lines.append("## Keywords not yet cited")
+          lines.append("")
+          for kw, info in latest["keywords"].items():
+              if not info.get("cited") and not info.get("error"):
+                  lines.append(f"- P{info['priority']} `{kw}` → {info['target_url']}")
+
+          os.makedirs("reports", exist_ok=True)
+          fname = f"reports/citation_{latest['started_at'][:10]}.md"
+          with open(fname, "w") as f:
+              f.write("\n".join(lines))
+          print(f"Wrote {fname}")
+          PY
+
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.email "info@aiangels.io"
+          git config user.name "AI Angels Bot"
+          git add chatgpt_citation_log.json reports/ || true
+          git diff --cached --quiet || git commit -m "Weekly ChatGPT citation check [skip ci]"
+          git push || true
+
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-report
+          path: reports/
+          retention-days: 90
