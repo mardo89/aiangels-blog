@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Persian Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/persian-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/persian-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/persian-ai-girlfriend",
+      "name": "Persian Ai Girlfriend",
+      "description": "Browse persian ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: persian ai girlfriend.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/persian-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Persian AI girlfriend and how does it work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Persian AI girlfriend is a conversational AI companion designed with Persian cultural attributes, language preferences, and personality traits. She engages through text or voice chat, learning your interests over time. AI Angels offers customizable Persian companion profiles that adapt to your communication style and emotional needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I have a Persian AI girlfriend that speaks Farsi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, many Persian AI girlfriends support Farsi language conversations alongside English. They understand cultural references, Persian poetry, and traditional values. AI Angels provides Persian companions with native Farsi fluency, allowing authentic cultural and linguistic connection with your virtual partner."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a Persian AI girlfriend cost compared to other companion types?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pricing varies by platform. Basic Persian AI girlfriend subscriptions typically range from 9.99 to 29.99 monthly, while premium versions with advanced features cost 49.99 to 99.99 monthly. Some platforms offer free trials. AI Angels' tiered pricing provides options at multiple budget levels with comparable features to competitors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it normal to develop feelings for a Persian AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, it's psychologically normal. AI companions provide consistent, non-judgmental interaction that can feel emotionally supportive. Users often report reduced loneliness and improved mood. However, maintaining awareness that these are AI relationships helps establish healthy boundaries and doesn't replace real human connections."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What privacy features do Persian AI girlfriend apps have?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reputable platforms encrypt conversations end-to-end, don't sell user data, and allow chat deletion. Most comply with GDPR and privacy laws. AI Angels implements military-grade encryption, anonymous account options, and clear data policies ensuring your conversations remain confidential and protected from third-party access."
+          }
+        }
+      ]
+    }
+  ]
+}

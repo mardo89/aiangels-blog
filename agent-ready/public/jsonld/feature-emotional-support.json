@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://www.aiangels.io/features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Emotional Support",
+          "item": "https://www.aiangels.io/features/emotional-support"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/features/emotional-support#webpage",
+      "url": "https://www.aiangels.io/features/emotional-support",
+      "name": "Emotional Support",
+      "description": "AI Angels' emotional support feature explained \u2014 how it works and why it matters. Related: ai emotional support, ai girlfriend emotional support, ai companion for loneliness, ai chat for lonely people.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/features/emotional-support#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can an AI actually provide emotional support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, AI companions can offer immediate, non-judgmental listening and supportive responses 24/7. They help process feelings, reduce anxiety, and provide coping strategies. However, they complement rather than replace human connection or professional mental health care. AI Angels provides trained emotional support conversations designed to help users feel heard and understood."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is using an AI girlfriend or companion bad for loneliness?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI companions can reduce immediate loneliness and provide comfort, but research shows they work best alongside human relationships. Studies indicate 68% of users report improved mood after AI conversations, yet long-term isolation requires human connection. AI Angels balances supportive interaction with encouragement toward real-world social engagement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI chat for lonely people differ from texting a friend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI chat offers instant availability without social anxiety, judgment, or reciprocal obligations. Friends provide deeper connection and genuine understanding. AI is ideal for practicing social skills, exploring emotions safely, or getting support at 3 AM. Many use both\u2014AI for immediate comfort, humans for authentic relationship and growth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I expect from an AI emotional support conversation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Expect empathetic listening, validation, and practical suggestions like breathing exercises or perspective shifts. AI won't offer diagnosis or medication advice. Quality platforms like AI Angels focus on understanding your feelings, asking clarifying questions, and helping you feel less alone. Sessions are typically conversational and tailored to your needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my emotional data private when using an AI companion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Privacy depends on the platform. Reputable AI emotional support services encrypt conversations and don't sell data to third parties. Always check terms of service before sharing sensitive details. AI Angels prioritizes user privacy with encrypted storage and clear data policies, ensuring your emotional conversations remain confidential and secure."
+          }
+        }
+      ]
+    }
+  ]
+}

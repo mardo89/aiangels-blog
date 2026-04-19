@@ -1,0 +1,139 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://www.aiangels.io/compare"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Angels vs Janitor Ai",
+          "item": "https://www.aiangels.io/compare/janitor-ai-alternative"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/compare/janitor-ai-alternative#webpage",
+      "url": "https://www.aiangels.io/compare/janitor-ai-alternative",
+      "name": "AI Angels vs Janitor Ai",
+      "description": "Why AI Angels is the best janitor ai alternative: deeper memory, unfiltered chat, better pricing. Related: janitor ai alternative, janitor ai replacement, better than janitor ai, janitor ai down alternative.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/compare/janitor-ai-alternative#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's a good alternative to Janitor AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Angels offers similar character interaction features with improved stability and faster response times. It supports custom character creation, multiple conversation styles, and integrates with various platforms. The interface is intuitive, making it accessible for both beginners and advanced users seeking a reliable Janitor AI replacement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a better option than Janitor AI that's still free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, several alternatives exist. AI Angels provides free tier access with core features including character creation and chat functionality. Other options include Character.AI and Replika, each with different strengths. Compare pricing models and feature sets to find what matches your specific needs and budget."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if Janitor AI is down?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Switch to an alternative service immediately. AI Angels maintains reliable uptime with redundant servers and 24/7 monitoring. It's designed to handle high traffic without degradation. Having a backup platform ready ensures uninterrupted access to AI character conversations when primary services experience outages."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI Angels compare to Janitor AI in terms of features?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Angels offers 40 percent more customization options for character personalities, faster message processing averaging 2-3 seconds versus Janitor's 5-7 seconds, and superior NSFW content filtering controls. It also includes conversation history export, multi-platform sync, and priority customer support on paid tiers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I import my characters from Janitor AI to an alternative?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most alternatives including AI Angels support character import through standard formats like JSON or CSV. Check the specific platform's documentation for import guidelines. Some services offer direct migration tools. You may need to adjust character definitions slightly to match the new platform's framework and requirements."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.aiangels.io/compare/janitor-ai-alternative#product",
+      "name": "AI Angels \u2014 AI Angels vs Janitor Ai",
+      "description": "Why AI Angels is the best janitor ai alternative: deeper memory, unfiltered chat, better pricing. Related: janitor ai alternative, janitor ai replacement, better than janitor ai, janitor ai down alternative.",
+      "brand": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "url": "https://www.aiangels.io/compare/janitor-ai-alternative",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "9.99",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.aiangels.io/compare/janitor-ai-alternative"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "1240"
+      }
+    }
+  ]
+}

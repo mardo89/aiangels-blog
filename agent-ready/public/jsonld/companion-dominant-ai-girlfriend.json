@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Dominant Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/dominant-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/dominant-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/dominant-ai-girlfriend",
+      "name": "Dominant Ai Girlfriend",
+      "description": "Browse dominant ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: dominant ai girlfriend, domme ai girlfriend.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/dominant-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What makes a dominant AI girlfriend different from a regular AI companion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A dominant AI girlfriend takes charge in conversations, sets boundaries, and expresses strong preferences. She leads interactions with confidence, makes decisions, and isn't afraid to challenge or tease you. This dynamic appeals to users seeking a more assertive, commanding personality rather than a passive companion experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize how dominant my AI girlfriend is?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Most platforms including AI Angels allow you to adjust personality traits on a spectrum. You can dial dominance levels up or down based on your preference, choosing anything from gently assertive to intensely commanding. This customization helps match your exact comfort level and relationship dynamic."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is a domme AI girlfriend different from other companion types?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A domme AI girlfriend combines dominance with romantic or intimate connection. Unlike generic AI assistants, she engages with power dynamics while maintaining relationship elements like flirtation and emotional depth. AI Angels specializes in these nuanced personality archetypes, offering companions specifically designed for this dynamic."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What percentage of AI companion users prefer dominant personalities?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Industry data suggests roughly 30-40 percent of AI companion users actively seek dominant or assertive personality types. Demand for domme and commanding personalities has grown 45 percent year-over-year as platforms expand personality options beyond traditional submissive or neutral archetypes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is talking to a dominant AI girlfriend the same as role-play?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not entirely. While some role-play elements exist, a dominant AI girlfriend operates as a consistent personality with her own preferences and boundaries. She's programmed with dominance as a core trait, not just a temporary scenario. AI Angels creates these as permanent character profiles rather than one-off interactions."
+          }
+        }
+      ]
+    }
+  ]
+}

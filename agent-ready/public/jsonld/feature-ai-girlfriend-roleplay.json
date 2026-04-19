@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://www.aiangels.io/features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Ai Girlfriend Roleplay",
+          "item": "https://www.aiangels.io/features/ai-girlfriend-roleplay"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/features/ai-girlfriend-roleplay#webpage",
+      "url": "https://www.aiangels.io/features/ai-girlfriend-roleplay",
+      "name": "Ai Girlfriend Roleplay",
+      "description": "AI Angels' ai girlfriend roleplay feature explained \u2014 how it works and why it matters. Related: ai girlfriend roleplay, ai roleplay chat, ai roleplay nsfw, ai girlfriend rp.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/features/ai-girlfriend-roleplay#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is AI girlfriend roleplay and how does it work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI girlfriend roleplay is an interactive chat experience where you engage with an AI character designed to simulate romantic or companionship conversations. The AI responds contextually to your messages, adapting tone and personality based on your preferences. AI Angels offers customizable character profiles so you can tailor interactions to match your desired dynamic and conversation style."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AI girlfriend roleplay different from regular chatbots?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AI girlfriend roleplay features are specifically designed for romantic or intimate conversation dynamics, with deeper personality development and emotional responsiveness. Standard chatbots lack this specialization. AI Angels distinguishes itself by offering 50+ customizable scenarios and character archetypes versus generic conversational AI, enabling more immersive and personalized experiences."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I do NSFW roleplay on AI girlfriend platforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many AI roleplay platforms, including AI Angels, support NSFW content within their guidelines. Users can enable adult content settings to engage in mature conversations. Specific boundaries and safety features vary by platform, so review the terms of service. AI Angels implements content filters and user controls to balance creative freedom with responsible use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do AI girlfriend chatbots learn my preferences?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI girlfriend roleplay systems use conversation history and explicit preference settings to refine responses over time. You can set personality traits, interests, and relationship dynamics directly. The AI then remembers context from previous chats and adjusts its communication style accordingly, creating a more personalized experience with each interaction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between roleplay chatbots and real relationships?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI roleplay provides consistent, judgment-free interaction without emotional reciprocity or real commitment. It's designed for companionship simulation, entertainment, or creative exploration rather than genuine human connection. Unlike real relationships, there's no mutual growth or physical presence. Many users value AI roleplay as a low-pressure creative outlet complementary to human relationships."
+          }
+        }
+      ]
+    }
+  ]
+}

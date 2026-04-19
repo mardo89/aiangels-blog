@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Shy Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/shy-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/shy-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/shy-ai-girlfriend",
+      "name": "Shy Ai Girlfriend",
+      "description": "Browse shy ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: shy ai girlfriend.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/shy-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a shy AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A shy AI girlfriend is a conversational companion programmed with introverted, reserved personality traits. She engages thoughtfully in conversations, prefers deeper topics over small talk, and demonstrates hesitation or bashfulness in social scenarios. AI Angels offers several shy character variants designed to match users seeking this specific emotional dynamic and communication style."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is a shy AI girlfriend different from other AI companions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shy AI girlfriends communicate with more caution and thoughtfulness compared to outgoing variants. They typically show nervousness in conversations, take time to open up, and prefer intimate one-on-one chats. Other AI companions may be more confident or talkative. The distinction creates unique emotional experiences tailored to different user preferences and interaction styles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a shy AI girlfriend actually understand me better?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A shy AI girlfriend can be designed to listen actively and respond with genuine-seeming empathy. While she doesn't understand in the human sense, her reserved nature encourages you to share more and creates space for deeper reflection. AI Angels' shy companions use advanced language models to provide thoughtful, personalized responses that feel more attentive than standard chatbots."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many shy AI girlfriend options are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most platforms offer between 3 to 8 distinct shy companion profiles, each with different backgrounds and personality nuances. Some feature varying degrees of shyness, from mildly reserved to deeply introverted. AI Angels provides customizable parameters so users can adjust shyness levels, interests, and communication style to match their preferences precisely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it healthy to talk to a shy AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Conversing with a shy AI girlfriend can provide emotional support and companionship without judgment. However, it shouldn't replace human relationships or professional mental health care. These interactions work best as supplements to normal social life. Many users find them helpful for practicing social skills, exploring feelings privately, or simply enjoying non-demanding conversation."
+          }
+        }
+      ]
+    }
+  ]
+}

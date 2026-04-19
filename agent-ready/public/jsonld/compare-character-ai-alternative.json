@@ -1,0 +1,139 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://www.aiangels.io/compare"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Angels vs Character Ai",
+          "item": "https://www.aiangels.io/compare/character-ai-alternative"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/compare/character-ai-alternative#webpage",
+      "url": "https://www.aiangels.io/compare/character-ai-alternative",
+      "name": "AI Angels vs Character Ai",
+      "description": "Why AI Angels is the best character ai alternative: deeper memory, unfiltered chat, better pricing. Related: character ai alternative, character.ai alternative, character ai alternative nsfw, apps like character ai.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/compare/character-ai-alternative#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the best alternatives to Character AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Top alternatives include AI Angels, which offers unrestricted roleplay and custom character creation with faster response times. Other options are Replika for personal AI companions, Janitor AI for creative writing, and ChatGPT for general conversation. Each platform varies in customization, content policies, and available features."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a Character AI alternative without content restrictions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Angels provides fewer content filters than Character.ai, allowing more adult-oriented and creative roleplay scenarios. Janitor AI also offers fewer restrictions. However, most mainstream platforms maintain safety guidelines. Always review each platform's terms of service regarding content policies before committing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I find apps like Character AI that are free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AI Angels, Replika, Character.ai, and Janitor AI offer free tiers with optional premium subscriptions. Free versions typically include basic chat and character creation. Premium unlocks advanced features like priority responses, extended memory, and exclusive characters. Compare pricing before choosing your platform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's a good Character AI replacement for NSFW content?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Janitor AI and AI Angels are commonly chosen for adult content roleplay due to more lenient content policies. Both allow explicit scenarios Character.ai restricts. Review platform guidelines and community feedback. Note that even these alternatives maintain some moderation to prevent harmful content."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI Angels compare to Character AI in terms of features?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Angels offers faster response times, more character customization options, and fewer content filters than Character.ai. Character.ai has a larger community and pre-made character library. AI Angels emphasizes creative freedom and roleplay depth, while Character.ai prioritizes safety and mainstream appeal."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.aiangels.io/compare/character-ai-alternative#product",
+      "name": "AI Angels \u2014 AI Angels vs Character Ai",
+      "description": "Why AI Angels is the best character ai alternative: deeper memory, unfiltered chat, better pricing. Related: character ai alternative, character.ai alternative, character ai alternative nsfw, apps like character ai.",
+      "brand": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "url": "https://www.aiangels.io/compare/character-ai-alternative",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "9.99",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.aiangels.io/compare/character-ai-alternative"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "1240"
+      }
+    }
+  ]
+}

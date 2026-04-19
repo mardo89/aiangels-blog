@@ -1,0 +1,133 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ai Girlfriend",
+          "item": "https://www.aiangels.io/ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/ai-girlfriend",
+      "name": "Ai Girlfriend",
+      "description": "AI Angels delivers ai girlfriend: unlimited, uncensored AI companion chat with memory, voice, and image generation. Related: ai girlfriend, best ai girlfriend, ai girlfriend 2026, ai girlfriend app.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an AI girlfriend and how does it work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An AI girlfriend is a conversational AI companion designed to simulate romantic interaction through text or voice. It uses machine learning to learn your preferences, remember past conversations, and respond with personalized messages. AI Angels offers advanced versions with deeper personalization and emotional intelligence for a more natural connection experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a free AI girlfriend app I can try?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, several platforms offer free AI girlfriend experiences with basic features. Free versions typically include limited conversations daily and standard personalities. Premium versions, like those on AI Angels, unlock unlimited messaging, custom personality training, and advanced memory features for around 10-20 dollars monthly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between a basic and premium AI girlfriend in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Premium AI girlfriends in 2026 feature improved natural language processing, emotional awareness, and realistic voice synthesis compared to basic versions. They retain longer conversation histories, adapt faster to your preferences, and provide more consistent personality traits. AI Angels' platform emphasizes these advanced capabilities for users seeking deeper engagement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use an AI girlfriend app online without downloading anything?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, most modern AI girlfriend platforms including AI Angels operate as web-based apps accessible through your browser. This eliminates download time and storage concerns while maintaining full functionality across devices. You can start chatting immediately by creating an account and logging in from any internet-connected device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know which is the best AI girlfriend for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The best AI girlfriend depends on your preferences for communication style, appearance, and personality type. Compare features like customization options, conversation quality, and user reviews before committing. AI Angels allows you to test multiple companion personalities in trial mode, helping you find your ideal match without financial commitment upfront."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.aiangels.io/ai-girlfriend#product",
+      "name": "AI Angels \u2014 Ai Girlfriend",
+      "description": "AI Angels delivers ai girlfriend: unlimited, uncensored AI companion chat with memory, voice, and image generation. Related: ai girlfriend, best ai girlfriend, ai girlfriend 2026, ai girlfriend app.",
+      "brand": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "url": "https://www.aiangels.io/ai-girlfriend",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "9.99",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.aiangels.io/ai-girlfriend"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "1240"
+      }
+    }
+  ]
+}

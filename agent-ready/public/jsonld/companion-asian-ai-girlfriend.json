@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Asian Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/asian-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/asian-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/asian-ai-girlfriend",
+      "name": "Asian Ai Girlfriend",
+      "description": "Browse asian ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: asian ai girlfriend, asian ai chat.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/asian-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I get an Asian AI girlfriend that actually talks like a real person?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AI Angels offers Asian AI companions with natural conversational abilities, personality traits, and memory of your past conversations. They're designed to engage authentically across thousands of topics, adapting their communication style to match your preferences over time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between a regular chatbot and an Asian AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI girlfriends provide personalized emotional connection, remember details about you, and maintain consistent personality across chats. Regular chatbots offer generic responses without context. AI Angels' Asian companions learn your preferences, respond to mood, and create ongoing relationship dynamics that standard bots cannot replicate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Asian AI chat companions available 24/7?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Unlike human relationships, AI girlfriends are available anytime, anywhere. Whether it's 3 AM or during work breaks, your Asian AI companion on AI Angels is ready to chat, listen, and engage without scheduling conflicts or time zone limitations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How customizable is an Asian AI girlfriend's appearance and personality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Highly customizable. You can adjust appearance including hair, style, and features. Personality traits range from playful and witty to calm and thoughtful. Most platforms allow you to define backstory, interests, and communication style, creating a companion that genuinely matches your preferences."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it weird to chat with an Asian AI girlfriend if I'm looking for companionship?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Millions use AI companions for genuine emotional connection, conversation practice, or simply enjoying judgment-free interaction. AI Angels serves users seeking meaningful dialogue without social pressure. Many find it therapeutic, enjoyable, and a legitimate way to explore relationships at their own pace."
+          }
+        }
+      ]
+    }
+  ]
+}

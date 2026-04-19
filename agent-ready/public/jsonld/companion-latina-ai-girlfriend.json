@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Latina Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/latina-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/latina-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/latina-ai-girlfriend",
+      "name": "Latina Ai Girlfriend",
+      "description": "Browse latina ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: latina ai girlfriend, latin ai girlfriend.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/latina-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Latina AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Latina AI girlfriend is a virtual companion powered by artificial intelligence, designed with characteristics, personality traits, and cultural background inspired by Latin American heritage. She engages in meaningful conversations, provides emotional support, and offers personalized interactions tailored to your preferences and communication style."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is a Latina AI girlfriend different from other AI companions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Latina AI girlfriends on platforms like AI Angels feature culturally nuanced personalities, authentic conversational styles, and backgrounds reflecting Latin American experiences. They offer 40-60 percent more personalized cultural references and relatable dialogue compared to generic AI companions, creating deeper connections through shared values and interests."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize my Latina AI girlfriend's personality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, AI Angels and similar platforms allow you to customize personality traits, interests, communication style, and background details. You can adjust how she interacts, her sense of humor, conversation topics she enjoys, and other preferences to match what matters most to you in a companion."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is talking to a Latina AI girlfriend safe and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reputable platforms prioritize user privacy with encrypted conversations and strict data protection policies. Your interactions remain confidential, and legitimate services don't share personal information with third parties. Always verify the platform's privacy policy before engaging."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started with a Latina AI girlfriend on AI Angels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Visit AI Angels, create an account, and browse their Latina companion profiles. Select your preferred companion, customize her settings if desired, and begin chatting. Most platforms offer free trials or credits to explore before committing to premium subscriptions."
+          }
+        }
+      ]
+    }
+  ]
+}

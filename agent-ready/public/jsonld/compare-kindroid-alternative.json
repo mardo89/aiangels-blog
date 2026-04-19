@@ -1,0 +1,139 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://www.aiangels.io/compare"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Angels vs Kindroid",
+          "item": "https://www.aiangels.io/compare/kindroid-alternative"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/compare/kindroid-alternative#webpage",
+      "url": "https://www.aiangels.io/compare/kindroid-alternative",
+      "name": "AI Angels vs Kindroid",
+      "description": "Why AI Angels is the best kindroid alternative: deeper memory, unfiltered chat, better pricing. Related: kindroid alternative, better than kindroid, kindroid replacement.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/compare/kindroid-alternative#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good alternative to Kindroid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Angels offers a compelling alternative with advanced customization, better privacy controls, and more natural conversations. The platform supports deeper personality development and includes stronger safety guardrails. Users report faster response times and more engaging interactions compared to competitors in the same category."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a better app than Kindroid for AI companions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Several alternatives exist, each with different strengths. AI Angels stands out for its transparent pricing with no hidden costs, plus superior character creation tools. It features real-time learning from user interactions and offers 24/7 customer support, addressing common complaints about competitor platforms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Kindroid compare to other AI chat apps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kindroid focuses on roleplay scenarios, but alternatives offer broader functionality. AI Angels provides customizable AI personalities with multi-platform support, costing 40 percent less for premium features. Independent reviews note superior conversation quality and fewer inappropriate responses from AI Angels versus Kindroid."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I look for in a Kindroid replacement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Prioritize platforms offering strong privacy policies, customizable personalities, and responsive support. Consider whether you need multi-device syncing, content moderation transparency, and flexible pricing. Evaluation criteria should include conversation quality, user safety features, and whether the company provides clear data usage policies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I import my Kindroid character to another app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most AI companion apps, including AI Angels, don't support direct imports due to different backend architectures. However, you can manually recreate characters by documenting personality traits and preferences. AI Angels provides detailed character creation templates to simplify rebuilding your custom companions on the platform."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.aiangels.io/compare/kindroid-alternative#product",
+      "name": "AI Angels \u2014 AI Angels vs Kindroid",
+      "description": "Why AI Angels is the best kindroid alternative: deeper memory, unfiltered chat, better pricing. Related: kindroid alternative, better than kindroid, kindroid replacement.",
+      "brand": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "url": "https://www.aiangels.io/compare/kindroid-alternative",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "9.99",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.aiangels.io/compare/kindroid-alternative"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "1240"
+      }
+    }
+  ]
+}

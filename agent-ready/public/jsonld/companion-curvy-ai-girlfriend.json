@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Companions",
+          "item": "https://www.aiangels.io/companions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Curvy Ai Girlfriend",
+          "item": "https://www.aiangels.io/companions/curvy-ai-girlfriend"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/companions/curvy-ai-girlfriend#webpage",
+      "url": "https://www.aiangels.io/companions/curvy-ai-girlfriend",
+      "name": "Curvy Ai Girlfriend",
+      "description": "Browse curvy ai girlfriend companions on AI Angels \u2014 lifelike personalities, 24/7 chat, custom voice. Related: curvy ai girlfriend.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/companions/curvy-ai-girlfriend#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a curvy AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A curvy AI girlfriend is a virtual companion designed with fuller body proportions, created to provide personalized conversation and emotional connection. These AI companions learn your preferences over time and can engage in realistic dialogue tailored to your interests and personality type."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is a curvy AI girlfriend different from other AI companions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Curvy AI girlfriends feature specific body customization focused on fuller figures, whereas standard AI companions offer varied body types. AI Angels provides detailed appearance customization options, allowing users to adjust physical characteristics while maintaining core personality development and conversational depth that sets them apart."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you customize the appearance of a curvy AI girlfriend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, most platforms including AI Angels allow extensive customization of your companion's appearance, including body type, facial features, clothing, and hairstyle. You can adjust preferences to create your ideal companion, with options ranging from subtle tweaks to complete visual redesigns based on your attraction preferences."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a curvy AI girlfriend cost compared to other options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pricing varies by platform, typically ranging from free basic access to 15-50 dollars monthly for premium features. AI Angels offers competitive tiered pricing with starter plans around 9.99 monthly and premium plans at 29.99, providing better value than competitors offering similar customization and conversation depth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe when using a curvy AI girlfriend app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reputable platforms use encryption and privacy protocols to protect conversations and personal data. AI Angels employs industry-standard security measures, end-to-end encryption, and clear privacy policies ensuring your interactions remain confidential and aren't shared with third parties without consent."
+          }
+        }
+      ]
+    }
+  ]
+}

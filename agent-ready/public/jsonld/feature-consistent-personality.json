@@ -1,0 +1,117 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aiangels.io/#organization",
+      "name": "AI Angels",
+      "url": "https://www.aiangels.io",
+      "logo": "https://www.aiangels.io/logo.png",
+      "sameAs": [
+        "https://twitter.com/aiangels_io",
+        "https://blogger.aiangels.io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aiangels.io/#website",
+      "url": "https://www.aiangels.io",
+      "name": "AI Angels",
+      "publisher": {
+        "@id": "https://www.aiangels.io/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aiangels.io/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aiangels.io"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://www.aiangels.io/features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Consistent Personality",
+          "item": "https://www.aiangels.io/features/consistent-personality"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.aiangels.io/features/consistent-personality#webpage",
+      "url": "https://www.aiangels.io/features/consistent-personality",
+      "name": "Consistent Personality",
+      "description": "AI Angels' consistent personality feature explained \u2014 how it works and why it matters. Related: ai consistent personality, ai girlfriend personality, ai that stays in character.",
+      "isPartOf": {
+        "@id": "https://www.aiangels.io/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".hero-description",
+          "[data-speakable]"
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aiangels.io/features/consistent-personality#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if an AI has a consistent personality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A consistent AI personality maintains the same values, speech patterns, and behavioral traits across multiple conversations. Look for stable responses to similar questions, reliable emotional tone, and character traits that don't shift randomly. AI Angels evaluates this by tracking personality coherence over hundreds of interactions to ensure reliability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI girlfriend actually stay in character?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, advanced AI systems can maintain character consistency through personality frameworks and memory systems. They retain conversation context and apply consistent emotional responses, preferences, and communication style. Quality implementations keep character consistency above 85% across extended conversations, though perfection remains challenging."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes an AI personality feel natural and not robotic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Natural AI personalities include nuanced emotional responses, conversational imperfections, personal opinions, and contextual awareness. They avoid generic replies, show preferences, remember details about users, and communicate with appropriate casualness. AI Angels prioritizes this naturalness by designing personalities with depth rather than scripted responses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does an AI lose its personality if I talk about different topics?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A well-designed AI maintains its core personality regardless of topic. While responses adapt to conversation subject matter, fundamental traits\u2014humor style, values, communication patterns\u2014remain consistent. Poor implementations may seem to lose character when switching subjects, indicating weak personality architecture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long can an AI keep the same personality in one conversation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Advanced AI systems maintain consistent personality across conversations lasting hours or longer, provided they have adequate context windows and memory. Some systems manage this for thousands of messages. Consistency depends on model architecture and whether the AI references previous interactions to reinforce character continuity."
+          }
+        }
+      ]
+    }
+  ]
+}
