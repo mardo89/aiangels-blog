@@ -66,7 +66,7 @@ FLOW = [
     {
         "id": "welcome",
         "delay_days": 0,
-        "subject": "Welcome to AI Angels 💗",
+        "subject": "Welcome to AI Angels",
         "template": "welcome.html",
         "skip_if": [],
     },
