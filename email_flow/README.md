@@ -8,7 +8,7 @@ Welcome + drip automation for everyone who signs up at aiangels.io.
 |------|------|---------|---------|
 | `welcome` | instant | Welcome to AI Angels 💗 | — |
 | `tips` | +1 day | 3 ways to make her feel real | — |
-| `social` | +3 days | 50,000+ users — here's what they're saying | — |
+| `social` | +3 days | 5,000+ users — here's what they're saying | — |
 | `upgrade` | +7 days | Unlock voice, memory + unlimited chat | `upgraded` |
 | `winback` | +14 days | She's been thinking about you | `upgraded` |
 

@@ -27,13 +27,17 @@ image = (
 )
 
 volume = modal.Volume.from_name("aiangels-email-state", create_if_missing=True)
+trial_volume = modal.Volume.from_name("aiangels-trial-state", create_if_missing=True)
 secret = modal.Secret.from_name("resend-prod")
 
 
 @app.function(
     image=image,
     secrets=[secret],
-    volumes={"/root/app/email_flow": volume},
+    volumes={
+        "/root/app/email_flow": volume,
+        "/root/app/trial_flow": trial_volume,
+    },
     min_containers=1,
 )
 @modal.asgi_app()
@@ -47,13 +51,20 @@ def web():
 @app.function(
     image=image,
     secrets=[secret],
-    volumes={"/root/app/email_flow": volume},
+    volumes={
+        "/root/app/email_flow": volume,
+        "/root/app/trial_flow": trial_volume,
+    },
     schedule=modal.Cron("0 * * * *"),  # every hour
 )
 def drip_cron():
-    import sys
+    import os, sys
     sys.path.insert(0, "/root/app")
-    from email_flow.flow import run_drips
-    result = run_drips()
-    print(f"Drip run: {result}")
+    from email_flow.flow import run_drips as signup_drips
+    print(f"Signup drip run: {signup_drips()}")
     volume.commit()
+    # Trial flow is parked — see email_flow/webhook.py ENABLE_TRIAL_FLOW flag.
+    if os.environ.get("ENABLE_TRIAL_FLOW") == "1":
+        from trial_flow.flow import run_drips as trial_drips
+        print(f"Trial drip run: {trial_drips()}")
+        trial_volume.commit()

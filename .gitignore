@@ -7,3 +7,5 @@ __pycache__/
 cron.log
 email_flow/subscribers.json
 email_flow/flow.log
+trial_flow/subscribers.json
+trial_flow/flow.log

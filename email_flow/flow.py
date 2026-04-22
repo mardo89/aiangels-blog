@@ -76,7 +76,7 @@ FLOW = [
     {
         "id": "social",
         "delay_days": 3,
-        "subject": "50,000+ users — here's what they're saying",
+        "subject": "5,000+ users — here's what they're saying",
         "template": "social.html",
         "skip_if": [],
     },
