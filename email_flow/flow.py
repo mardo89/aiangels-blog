@@ -41,9 +41,13 @@ load_dotenv(dotenv_path=REPO_DIR / ".env", override=True)
 sys.path.insert(0, str(REPO_DIR))
 from resend_client import send_email  # noqa: E402
 
-STATE_PATH = BASE_DIR / "subscribers.json"
+# State lives alongside code by default (local dev) or on a mounted volume on
+# Modal (prod). Override via EMAIL_FLOW_STATE_DIR for ephemeral storage.
+STATE_DIR = Path(os.environ.get("EMAIL_FLOW_STATE_DIR", str(BASE_DIR)))
+STATE_DIR.mkdir(parents=True, exist_ok=True)
+STATE_PATH = STATE_DIR / "subscribers.json"
 TEMPLATES_DIR = BASE_DIR / "templates"
-LOG_PATH = BASE_DIR / "flow.log"
+LOG_PATH = STATE_DIR / "flow.log"
 RESEND_AUDIENCE_ID = os.environ.get("RESEND_AUDIENCE_ID")  # optional
 UNSUBSCRIBE_BASE = os.environ.get(
     "EMAIL_UNSUBSCRIBE_BASE", "https://www.aiangels.io/unsubscribe"
