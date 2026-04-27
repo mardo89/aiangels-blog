@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-trial_flow/flow.py — "3 days free Premium" email flow.
+discount_flow/flow.py — "3 days free Premium" email flow.
 
 Entry point: the popup on aiangels.io. User submits email → we generate a
 unique promo code, send it in email 1, then drip 3 more emails over ~7 days
@@ -16,7 +16,7 @@ State:
     email, code, signed_up_at, drips_sent, redeemed_at, converted_at, unsubscribed
 
 Skip rules (the cross-flow handoff):
-    - **Redeemed code → stop EVERY remaining trial email.** They become a
+    - **Redeemed code → stop EVERY remaining discount email.** They become a
       regular account holder; the signup flow (email_flow) takes over with
       welcome → tips → social → upgrade → winback. No double-emailing.
     - Converted (paid):   stop everything immediately.
@@ -25,15 +25,15 @@ Skip rules (the cross-flow handoff):
 Source-of-truth integration: `redeemed_at` is derived from xangels'
 `promo_codes.times_used > 0` for that user's code (single read at run_drips
 time), so the moment a user pastes their code in the redeem flow, all
-remaining trial emails are suppressed on the next cron tick.
+remaining discount emails are suppressed on the next cron tick.
 
 CLI:
-    python3 -m trial_flow.flow subscribe --email x@y.com
-    python3 -m trial_flow.flow drips
-    python3 -m trial_flow.flow list
-    python3 -m trial_flow.flow redeemed --email x@y.com
-    python3 -m trial_flow.flow converted --email x@y.com
-    python3 -m trial_flow.flow unsubscribe --email x@y.com
+    python3 -m discount_flow.flow subscribe --email x@y.com
+    python3 -m discount_flow.flow drips
+    python3 -m discount_flow.flow list
+    python3 -m discount_flow.flow redeemed --email x@y.com
+    python3 -m discount_flow.flow converted --email x@y.com
+    python3 -m discount_flow.flow unsubscribe --email x@y.com
 """
 from __future__ import annotations
 import os
@@ -56,12 +56,12 @@ load_dotenv(dotenv_path=REPO_DIR / ".env", override=True)
 sys.path.insert(0, str(REPO_DIR))
 from resend_client import send_email  # noqa: E402
 
-STATE_DIR = Path(os.environ.get("TRIAL_FLOW_STATE_DIR", str(BASE_DIR)))
+STATE_DIR = Path(os.environ.get("DISCOUNT_FLOW_STATE_DIR", str(BASE_DIR)))
 STATE_DIR.mkdir(parents=True, exist_ok=True)
 STATE_PATH = STATE_DIR / "subscribers.json"
 TEMPLATES_DIR = BASE_DIR / "templates"
 LOG_PATH = STATE_DIR / "flow.log"
-REDEEM_BASE = os.environ.get("TRIAL_REDEEM_BASE", "https://www.aiangels.io/redeem")
+REDEEM_BASE = os.environ.get("DISCOUNT_REDEEM_BASE", "https://www.aiangels.io/redeem")
 UNSUBSCRIBE_BASE = os.environ.get(
     "EMAIL_UNSUBSCRIBE_BASE", "https://www.aiangels.io/unsubscribe"
 )
@@ -71,7 +71,7 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
     handlers=[logging.FileHandler(LOG_PATH), logging.StreamHandler()],
 )
-log = logging.getLogger("trial_flow")
+log = logging.getLogger("discount_flow")
 
 FLOW = [
     {
@@ -103,7 +103,7 @@ FLOW = [
         "subject": "Last 48h — plus 20% off if you stay",
         "template": "04_urgency.html",
         # Hard rule (per user spec): once they redeem the code, every remaining
-        # trial email stops. They're now an account holder and get only the
+        # discount email stops. They're now an account holder and get only the
         # signup flow's drip (welcome → tips → social → upgrade → winback).
         "skip_if": ["redeemed_at"],
     },
@@ -145,7 +145,7 @@ def _generate_code() -> str:
 def _render(template_name: str, sub: dict) -> str:
     raw = (TEMPLATES_DIR / template_name).read_text()
     redeem = f"{REDEEM_BASE}?code={sub['code']}"
-    unsub = f"{UNSUBSCRIBE_BASE}?token={sub['unsubscribe_token']}&list=trial"
+    unsub = f"{UNSUBSCRIBE_BASE}?token={sub['unsubscribe_token']}&list=discount"
     return (
         raw.replace("{{code}}", sub["code"])
         .replace("{{redeem_url}}", redeem)
@@ -208,7 +208,7 @@ def _try_send_step(sub: dict, step: dict) -> bool:
             subject=step["subject"],
             html=html,
             to=sub["email"],
-            tags=[("flow", "trial"), ("step", step["id"])],
+            tags=[("flow", "discount"), ("step", step["id"])],
         )
         sub["drips_sent"].append(step["id"])
         sub[f"sent_{step['id']}_at"] = _now()
@@ -238,7 +238,7 @@ def run_drips() -> dict:
             else:
                 skipped += 1
     _save(state)
-    log.info("Trial drip run: sent=%d skipped=%d", sent, skipped)
+    log.info("Discount drip run: sent=%d skipped=%d", sent, skipped)
     return {"sent": sent, "skipped": skipped, "total_subscribers": len(state["subscribers"])}
 
 
@@ -296,7 +296,7 @@ def unsubscribe_by_token(token: str) -> bool:
 
 
 def _cli():
-    ap = argparse.ArgumentParser(description="AI Angels trial email flow")
+    ap = argparse.ArgumentParser(description="AI Angels discount email flow")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("subscribe")
