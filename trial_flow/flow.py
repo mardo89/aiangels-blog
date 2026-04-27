@@ -15,11 +15,17 @@ to drive redemption and paid conversion.
 State:
     email, code, signed_up_at, drips_sent, redeemed_at, converted_at, unsubscribed
 
-Skip rules:
-    - If redeemed: stop reminder/preview. Still send urgency (now framed as
-      20%-off conversion push, useful post-redemption).
-    - If converted (paid): stop everything immediately.
-    - If unsubscribed: stop everything.
+Skip rules (the cross-flow handoff):
+    - **Redeemed code → stop EVERY remaining trial email.** They become a
+      regular account holder; the signup flow (email_flow) takes over with
+      welcome → tips → social → upgrade → winback. No double-emailing.
+    - Converted (paid):   stop everything immediately.
+    - Unsubscribed:       stop everything.
+
+Source-of-truth integration: `redeemed_at` is derived from xangels'
+`promo_codes.times_used > 0` for that user's code (single read at run_drips
+time), so the moment a user pastes their code in the redeem flow, all
+remaining trial emails are suppressed on the next cron tick.
 
 CLI:
     python3 -m trial_flow.flow subscribe --email x@y.com
@@ -73,7 +79,9 @@ FLOW = [
         "delay_days": 0,
         "subject": "Your free Premium code 💗",
         "template": "01_code.html",
-        "skip_if": [],
+        # Note: parked in production — xangels' /api/promo/request-code sends
+        # the initial code email. We pick up from step 2 onward.
+        "skip_if": ["redeemed_at"],
     },
     {
         "id": "reminder",
@@ -94,7 +102,10 @@ FLOW = [
         "delay_days": 7,
         "subject": "Last 48h — plus 20% off if you stay",
         "template": "04_urgency.html",
-        "skip_if": [],  # send to everyone — doubles as post-trial conversion push
+        # Hard rule (per user spec): once they redeem the code, every remaining
+        # trial email stops. They're now an account holder and get only the
+        # signup flow's drip (welcome → tips → social → upgrade → winback).
+        "skip_if": ["redeemed_at"],
     },
 ]
 
