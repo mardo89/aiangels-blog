@@ -62,18 +62,6 @@ ENABLE_DISCOUNT_FLOW = os.environ.get("ENABLE_DISCOUNT_FLOW", "0") == "1"
 app = FastAPI(title="AI Angels Email Flow")
 
 
-def _commit(volume_attr: str) -> None:
-    """Commit a Modal volume attached on app.state so the long-running web
-    container's writes become visible to drip_cron. No-op when running locally
-    (no volume injected)."""
-    try:
-        vol = getattr(app.state, volume_attr, None)
-        if vol is not None:
-            vol.commit()
-    except Exception as e:
-        # Don't break the request on commit failure; we still wrote to disk.
-        import logging
-        logging.getLogger("email_flow").warning("volume commit (%s) failed: %s", volume_attr, e)
 
 
 def _check(secret: Optional[str]) -> None:
@@ -98,8 +86,7 @@ def health():
 def post_enroll(body: EnrollBody, x_webhook_secret: Optional[str] = Header(None)):
     _check(x_webhook_secret)
     sub = enroll(body.email, body.name, body.source)
-    _commit("signup_volume")
-    return {"enrolled": True, "email": sub["email"], "drips_sent": sub["drips_sent"]}
+    return {"enrolled": True, "email": sub["email"]}
 
 
 @app.post("/supabase-auth")
@@ -140,15 +127,12 @@ async def post_supabase(request: Request, x_webhook_secret: Optional[str] = Head
     user_meta = record.get("raw_user_meta_data") or {}
     source = app_meta.get("provider") or user_meta.get("provider") or "supabase"
     sub = enroll(email, None, source)
-    _commit("signup_volume")
     return {"enrolled": True, "email": sub["email"], "event": event}
 
 
 @app.get("/unsubscribe", response_class=HTMLResponse)
 def get_unsubscribe(token: str = ""):
     ok = unsubscribe_by_token(token) if token else False
-    if ok:
-        _commit("signup_volume")
     body = (
         "<h2>You're unsubscribed.</h2><p>You won't get more emails from AI Angels.</p>"
         if ok
@@ -165,17 +149,13 @@ class UpgradeBody(BaseModel):
 def post_upgraded(body: UpgradeBody, x_webhook_secret: Optional[str] = Header(None)):
     _check(x_webhook_secret)
     ok = mark_upgraded(body.email)
-    if ok:
-        _commit("signup_volume")
     return {"ok": ok}
 
 
 @app.post("/drips")
 def post_drips(x_webhook_secret: Optional[str] = Header(None)):
     _check(x_webhook_secret)
-    result = run_drips()
-    _commit("signup_volume")
-    return result
+    return run_drips()
 
 
 # --- Discount flow ("3 days free Premium" popup) ----------------------------

@@ -1,17 +1,17 @@
 """
-email_flow/deploy_modal.py — Deploy the webhook + daily drip cron on Modal.
+email_flow/deploy_modal.py — Deploy webhook + hourly drip cron on Modal.
+
+State lives in Modal Dicts (atomic claim primitive — no Volume race possible):
+    aiangels-signup-subs       email → subscriber profile
+    aiangels-signup-claims     "{email}:{step}" → {sent_at, resend_id}
+    (discount flow Dicts created lazily when ENABLE_DISCOUNT_FLOW=1)
 
 Deploy:
     modal deploy email_flow/deploy_modal.py
 
-Secret (create once):
-    modal secret create resend-prod \
-      RESEND_API_KEY=... RESEND_FROM="AI Angels <info@aiangels.io>" \
-      EMAIL_WEBHOOK_SECRET=... EMAIL_UNSUBSCRIBE_BASE=...
-
-State (subscribers.json) is kept on Modal Volumes mounted at /state/*
-— a path outside the code tree so the volume overlay works cleanly.
-The flow modules honor EMAIL_FLOW_STATE_DIR / DISCOUNT_FLOW_STATE_DIR envs.
+Secret (already created):
+    modal secret create resend-prod RESEND_API_KEY=... RESEND_FROM=...
+                                   EMAIL_WEBHOOK_SECRET=... EMAIL_UNSUBSCRIBE_BASE=...
 """
 from __future__ import annotations
 import modal
@@ -21,25 +21,15 @@ app = modal.App("aiangels-email-flow")
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install("fastapi", "uvicorn", "requests", "python-dotenv", "pydantic[email]")
-    .env({
-        "EMAIL_FLOW_STATE_DIR": "/state/signup",
-        "DISCOUNT_FLOW_STATE_DIR": "/state/discount",
-    })
     .add_local_dir(".", remote_path="/root/app")
 )
 
-signup_volume = modal.Volume.from_name("aiangels-email-state", create_if_missing=True)
-discount_volume = modal.Volume.from_name("aiangels-discount-state", create_if_missing=True)
 secret = modal.Secret.from_name("resend-prod")
 
 
 @app.function(
     image=image,
     secrets=[secret],
-    volumes={
-        "/state/signup": signup_volume,
-        "/state/discount": discount_volume,
-    },
     min_containers=1,
 )
 @modal.asgi_app()
@@ -47,36 +37,19 @@ def web():
     import sys
     sys.path.insert(0, "/root/app")
     from email_flow.webhook import app as fastapi_app
-    # Inject volume handles so the webhook can commit after every state write.
-    # Without this, long-running web container writes are invisible to drip_cron
-    # and drip_cron re-fires steps it already sent.
-    fastapi_app.state.signup_volume = signup_volume
-    fastapi_app.state.discount_volume = discount_volume
     return fastapi_app
 
 
-# Cron DISABLED while we migrate state from Modal Volume to Supabase.
-# Modal volume race causes duplicate sends — each cron run loads stale state
-# and re-fires steps. Re-enable after Supabase-backed state lands.
 @app.function(
     image=image,
     secrets=[secret],
-    volumes={
-        "/state/signup": signup_volume,
-        "/state/discount": discount_volume,
-    },
-    # schedule=modal.Cron("0 * * * *"),  # PAUSED — see comment above
+    schedule=modal.Cron("0 * * * *"),  # every hour — Dict atomic claim makes dupes impossible
 )
 def drip_cron():
     import os, sys
     sys.path.insert(0, "/root/app")
-    # Pull latest committed state from the web container before running.
-    signup_volume.reload()
     from email_flow.flow import run_drips as signup_drips
     print(f"Signup drip run: {signup_drips()}")
-    signup_volume.commit()
     if os.environ.get("ENABLE_DISCOUNT_FLOW") == "1":
-        discount_volume.reload()
         from discount_flow.flow import run_drips as discount_drips
         print(f"Discount drip run: {discount_drips()}")
-        discount_volume.commit()
