@@ -55,6 +55,9 @@ def web():
     return fastapi_app
 
 
+# Cron DISABLED while we migrate state from Modal Volume to Supabase.
+# Modal volume race causes duplicate sends — each cron run loads stale state
+# and re-fires steps. Re-enable after Supabase-backed state lands.
 @app.function(
     image=image,
     secrets=[secret],
@@ -62,7 +65,7 @@ def web():
         "/state/signup": signup_volume,
         "/state/trial": trial_volume,
     },
-    schedule=modal.Cron("0 * * * *"),  # every hour
+    # schedule=modal.Cron("0 * * * *"),  # PAUSED — see comment above
 )
 def drip_cron():
     import os, sys
