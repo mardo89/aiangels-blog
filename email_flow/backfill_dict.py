@@ -86,10 +86,35 @@ def main(commit: bool = False) -> dict:
 
     print(f"=== unique recipients with sends: {len(sends_by_email)} ===")
 
+    # FLOW ordering: if a user has step N, every step before N must be inferred as
+    # already-sent (Resend's /emails endpoint only returns ~100 records, so sends
+    # outside that window are invisible — but they happened, since later steps
+    # only fire after earlier ones).
+    FLOW_ORDER = ["welcome", "tips", "social", "upgrade", "winback"]
+
+    def fill_prior_steps(steps: dict) -> dict:
+        """If user has 'social' claimed, infer welcome+tips also claimed."""
+        present_indices = [FLOW_ORDER.index(s) for s in steps if s in FLOW_ORDER]
+        if not present_indices:
+            return steps
+        max_idx = max(present_indices)
+        # earliest known timestamp gets used as a placeholder for inferred sends
+        earliest_ts = min(s[0] for s in steps.values())
+        inferred = dict(steps)
+        for i in range(max_idx):
+            step_id = FLOW_ORDER[i]
+            if step_id not in inferred:
+                inferred[step_id] = (earliest_ts, "inferred-prior-step")
+        return inferred
+
     # Upsert subscribers (with earliest signed_up_at across all their sends)
     subs_written = 0
     claims_written = 0
+    inferred_claims = 0
     for email, steps in sends_by_email.items():
+        original_count = len(steps)
+        steps = fill_prior_steps(steps)
+        inferred_claims += len(steps) - original_count
         earliest = min(s[0] for s in steps.values())
         sub = {
             "email": email,
@@ -113,11 +138,14 @@ def main(commit: bool = False) -> dict:
                     claims_written += 1
 
     if not commit:
-        print(f"[dry-run] would upsert subs={len(sends_by_email)}, claims={sum(len(s) for s in sends_by_email.values())}")
+        print(f"[dry-run] would upsert subs={len(sends_by_email)}, "
+              f"claims={sum(len(fill_prior_steps(s)) for s in sends_by_email.values())} "
+              f"(of which inferred prior-steps: {inferred_claims})")
     else:
         print(f"=== wrote subs (new only): {subs_written} ===")
-        print(f"=== wrote claims (new only): {claims_written} ===")
-    return {"emails": len(sends_by_email), "subs_written": subs_written, "claims_written": claims_written}
+        print(f"=== wrote claims (new only): {claims_written} (inferred prior-steps: {inferred_claims}) ===")
+    return {"emails": len(sends_by_email), "subs_written": subs_written,
+            "claims_written": claims_written, "inferred_claims": inferred_claims}
 
 
 @app.local_entrypoint()
