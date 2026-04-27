@@ -43,7 +43,7 @@ def web():
 @app.function(
     image=image,
     secrets=[secret],
-    # schedule=modal.Cron("0 * * * *"),  # PAUSED until backfill prior-step fix verified
+    schedule=modal.Cron("0 * * * *"),  # every hour — Modal Dict atomic claim makes dupes impossible
 )
 def drip_cron():
     import os, sys
